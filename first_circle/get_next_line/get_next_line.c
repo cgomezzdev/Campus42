@@ -6,28 +6,35 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:55 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/04 21:01:17 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:28:30 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void read_fd()
+void ft_read_fd(int fd,rest)
 {
+// to read before \n
+// call the function strchar to read still find the character.
+}
 
-
+void ft_save_line()
+{
+//function to save the strjoin of the strings before the \n.
+//call the function strjoin to agroup the strigs.
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list;
-	char		*next_line;
+	static char	*rest;
+	char		*line;
 
-
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	read_fd(fd,&list);
+	ft_read_fd(fd,rest);
+	ft_save_line();
+	ft_clean_rest();
 	if (line == NULL)
 		return (NULL);
-	return (next_line);
+	return (line);
 }

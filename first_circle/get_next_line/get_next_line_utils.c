@@ -6,15 +6,19 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:36 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/09 22:13:48 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:55:32 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *s)
+#include "get_next_line.h"
+
+int	ft_strlen(const char *s)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -42,15 +46,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	i = -1;
+	if (!s1 || !s2)
+		return (NULL);
 	s3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * (sizeof(char)));
 	if (s3 == NULL)
 		return (NULL);
 	while (s1[++i])
-		s3[i] == s1[i];
+		s3[i] = s1[i];
 	j = 0;
 	while (s2[j])
 	{
-		s3[i] == s2[j];
+		s3[i] = s2[j];
 		i++;
 		j++;
 	}
@@ -62,11 +68,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
 
-	//if (start >= ft_strlen(s))
+	// if (start >= ft_strlen(s))
 	//	return (strdup);
 	if (ft_strlen(s) - start < len)
 		len = ft_strlen(s) - start;
-	if (s == NULL || star >= ft_strlen(s))
+	if (s == NULL || start >= ft_strlen(s))
 		s = "";
 	sub = malloc(len + 1 * (sizeof(char)));
 	if (sub == NULL)

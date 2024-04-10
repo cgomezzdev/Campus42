@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:43:02 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/09 18:22:50 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:33:46 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,9 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
+int		ft_strlen(const char *s);
+int		ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

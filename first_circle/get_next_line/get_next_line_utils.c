@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:36 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/10 21:55:32 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:03:20 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ int	ft_strchr(const char *s, int c)
 	return (-1);
 }
 
+char	*ft_strdup(char const *s1)
+{
+	char	*s2;
+	int		i;
+
+	i = 0;
+	s2 = malloc(ft_strlen(s1) + 1 * (sizeof(char)));
+	if (s2 == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s3;
@@ -67,15 +85,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
+	size_t	i;
+	size_t	j;
 
-	// if (start >= ft_strlen(s))
-	//	return (strdup);
+	i = 0;
+	j = start;
+	if (s == NULL)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
 	if (ft_strlen(s) - start < len)
 		len = ft_strlen(s) - start;
-	if (s == NULL || start >= ft_strlen(s))
-		s = "";
 	sub = malloc(len + 1 * (sizeof(char)));
 	if (sub == NULL)
 		return (NULL);
+	while (s[j] != '\0' && i < len)
+	{
+		sub[i] = s[j];
+		i++;
+		j++;
+	}
+	sub[i] = '\0';
 	return (sub);
 }

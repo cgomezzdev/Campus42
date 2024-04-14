@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:36 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/11 21:03:20 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:57:38 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 int	ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -92,7 +93,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	j = start;
 	if (s == NULL)
 		return (NULL);
-	if (start >= ft_strlen(s))
+	if (start >= (unsigned int)ft_strlen(s))
 		return (ft_strdup(""));
 	if (ft_strlen(s) - start < len)
 		len = ft_strlen(s) - start;

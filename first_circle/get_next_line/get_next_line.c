@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:55 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/14 21:57:41 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:58:32 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,21 @@ static char	*ft_clean_rest(char *rest_of_line)
 char	*get_next_line(int fd)
 {
 	static char	*rest_of_line;
-	char		*line = NULL;
+	char		*line;
 
-	rest_of_line = malloc((BUFFER_SIZE + 1) * (sizeof(char)));
+	line = NULL;
+	if (rest_of_line == NULL)
+		rest_of_line = ft_strdup("");
 	if (rest_of_line == NULL)
 		return (NULL);
-	rest_of_line[0] = '\0';
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	rest_of_line = ft_read_fd(fd, rest_of_line);
 	if (!rest_of_line)
 		return (NULL);
 	printf("Print rest of line: %s\n", rest_of_line);
-	printf("Print line: %s\n", line);
 	line = ft_cut_line(line, rest_of_line);
+	printf("Print line: %s\n", line);
 	if (!line)
 		return (NULL);
 	rest_of_line = ft_clean_rest(rest_of_line);

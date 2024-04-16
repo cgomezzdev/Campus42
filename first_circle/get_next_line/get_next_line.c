@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:55 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/15 22:06:17 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:37:10 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,20 @@ static char	*ft_read_fd(int fd, char *rest_of_line)
 	byte = 1;
 	tmp = malloc((BUFFER_SIZE + 1) * (sizeof(char)));
 	if (tmp == NULL)
-	{
-		free(rest_of_line);
-		return (NULL);
-	}
+		return (ft_free(&rest_of_line));
 	tmp[0] = '\0';
 	while (!ft_strchr(tmp, '\n'))
 	{
 		byte = read(fd, tmp, BUFFER_SIZE);
 		if (byte == 0)
 			break ;
-		// printf("pre-check\n");
 		if (byte < 0)
 		{
 			free(tmp);
-			free(rest_of_line);
-			return (NULL);
+			return (ft_free(&rest_of_line));
 		}
-		// printf("pre-join\n");
 		tmp[byte] = '\0';
 		rest_of_line = ft_strjoin(rest_of_line, tmp);
-		// printf("POST JOIN _%s_ tmp _%s_\n", rest_of_line, tmp);
 	}
 	free(tmp);
 	if (byte == -1)
@@ -101,6 +94,7 @@ char	*ft_free(char **s)
 	*s = NULL;
 	return (NULL);
 }
+
 char	*get_next_line(int fd)
 {
 	static char	*rest_of_line = NULL;
@@ -115,12 +109,9 @@ char	*get_next_line(int fd)
 	rest_of_line = ft_read_fd(fd, rest_of_line);
 	if (!rest_of_line)
 		return (NULL);
-	// printf("Print rest of line: %s\n", rest_of_line);
 	line = ft_cut_line(line, rest_of_line);
-	// printf("Print line: %s\n", line);
 	if (!line)
 		return (ft_free(&rest_of_line));
 	rest_of_line = ft_clean_rest(rest_of_line);
-	// printf("Preint new rest of line: %s\n", rest_of_line);
 	return (line);
 }

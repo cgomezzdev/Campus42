@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:55 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/16 14:37:10 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:38:44 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static char	*ft_read_fd(int fd, char *rest_of_line)
 	ssize_t	byte;
 	char	*tmp;
 
-	byte = 1;
 	tmp = malloc((BUFFER_SIZE + 1) * (sizeof(char)));
 	if (tmp == NULL)
 		return (ft_free(&rest_of_line));
@@ -25,26 +24,25 @@ static char	*ft_read_fd(int fd, char *rest_of_line)
 	while (!ft_strchr(tmp, '\n'))
 	{
 		byte = read(fd, tmp, BUFFER_SIZE);
-		if (byte == 0)
-			break ;
 		if (byte < 0)
 		{
 			free(tmp);
 			return (ft_free(&rest_of_line));
 		}
+		if (byte == 0)
+			break ;
 		tmp[byte] = '\0';
 		rest_of_line = ft_strjoin(rest_of_line, tmp);
 	}
 	free(tmp);
-	if (byte == -1)
-		ft_free(&rest_of_line);
 	return (rest_of_line);
 }
 
-static char	*ft_cut_line(char *line, char *rest_of_line)
+static char	*ft_cut_line(char *rest_of_line)
 {
-	int	start;
-	int	len;
+	char	*line;
+	int		start;
+	int		len;
 
 	start = 0;
 	len = 0;
@@ -71,11 +69,6 @@ static char	*ft_clean_rest(char *rest_of_line)
 	{
 		start++;
 	}
-	if (rest_of_line[start] == '\0')
-	{
-		free(rest_of_line);
-		return (NULL);
-	}
 	if (rest_of_line[start] == '\n')
 		start++;
 	len = 0;
@@ -101,17 +94,15 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		free(rest_of_line);
 		return (NULL);
-	}
-	line = NULL;
 	rest_of_line = ft_read_fd(fd, rest_of_line);
 	if (!rest_of_line)
 		return (NULL);
-	line = ft_cut_line(line, rest_of_line);
+	line = ft_cut_line(rest_of_line);
 	if (!line)
 		return (ft_free(&rest_of_line));
 	rest_of_line = ft_clean_rest(rest_of_line);
+	if (rest_of_line == NULL)
+		return (ft_free(&line));
 	return (line);
 }

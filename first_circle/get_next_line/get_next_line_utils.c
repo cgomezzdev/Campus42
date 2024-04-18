@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:36 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/16 14:31:10 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:21:58 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ char	*ft_strdup(char *s1)
 	i = 0;
 	s2 = malloc(ft_strlen(s1) + 1 * (sizeof(char)));
 	if (s2 == NULL)
-	{
-		return (ft_free(&s2));
-	}
+		return (NULL);
 	while (s1[i])
 	{
 		s2[i] = s1[i];

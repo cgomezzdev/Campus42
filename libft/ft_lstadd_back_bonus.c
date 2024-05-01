@@ -6,21 +6,23 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 22:54:13 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/02/16 18:26:43 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:05:21 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
+/*Anade el nodo 'new' al final de la lista 'lst'*/
 
-	if (!(*lst))
+void	ft_lstadd_back(t_list **lst, t_list *new)//Puntero al primer nodo de una lista, puntero a un nodo que anadir a la lista.
+{
+	t_list	*last;//Puntero que apuntal primer nodo
+
+	if (!(*lst))//Si el nodo no existe
 	{
-		*lst = new;
+		*lst = new;//El nodo acutal es igual al nuevo nodo porque la lista esta vacia.
 		return ;
 	}
-	last = ft_lstlast(*lst);
-	last->next = new;
+	last = ft_lstlast(*lst);//last es igual al ultimo nodo.
+	last->next = new;//Last apunta al nuevo nodo.
 }

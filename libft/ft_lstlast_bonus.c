@@ -6,22 +6,24 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:23:11 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/02/12 22:53:56 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:59:04 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
+/*Devuelve el ultimo nodo de la lista*/
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst->next != NULL)
+	while (lst->next != NULL)//Mientras el siguiente no sea NULL entrea en el bucle
 	{
-		lst = lst->next;
+		lst = lst->next;//El nodo es igual al siguiente nodo.
 	}
-	return (lst);
+	return (lst);//Retornamos el ultimo nodo.
 }
 /*
 int	main(void)

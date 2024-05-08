@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/08 21:37:59 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/05/08 19:19:14 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/05/08 19:37:07 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
-# define PUSH_SWAP
+#include "push_swap.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-
-int					ft_isdigit(int c);
-int long			ft_atoi(const char *str,int *flagr);
-
-typedef struct s_list
+int	ft_isdigit(int c)
 {
-	struct s_list	*next;
-	void			*content;
-}					t_list;
-
-#endif
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}

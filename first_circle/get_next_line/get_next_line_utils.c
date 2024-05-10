@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:36 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/18 17:21:58 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:31:31 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
+/*Esta funcion se usara para buscar el caracter de salto de linea*/
 int	ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -40,6 +41,7 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
+/*Esta funcion se usara para debolver una copia de un string con reserva de memoria*/
 char	*ft_strdup(char *s1)
 {
 	char	*s2;
@@ -58,6 +60,7 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
+/*Esta funcion se utiliz para unir lo trozos que se van leiendo hasta salto de linea*/
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
@@ -87,6 +90,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (s3);
 }
 
+/*Esta funcion sera para cortar la linea a imprimir y lo que sobra*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;

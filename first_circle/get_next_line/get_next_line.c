@@ -6,12 +6,13 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:42:55 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/04/18 17:38:44 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:26:29 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*Esta funcion es para leer el file descriptor*/
 static char	*ft_read_fd(int fd, char *rest_of_line)
 {
 	ssize_t	byte;
@@ -38,6 +39,7 @@ static char	*ft_read_fd(int fd, char *rest_of_line)
 	return (rest_of_line);
 }
 
+/*Esta funcion es para cortar la linea que queremos imprimier hasta el primer salto*/
 static char	*ft_cut_line(char *rest_of_line)
 {
 	char	*line;
@@ -58,6 +60,7 @@ static char	*ft_cut_line(char *rest_of_line)
 	return (line);
 }
 
+/*Esta funcion es para cortar lo que sobra de la linea y guardarlo en la estatica*/
 static char	*ft_clean_rest(char *rest_of_line)
 {
 	char	*new_rest;
@@ -81,6 +84,7 @@ static char	*ft_clean_rest(char *rest_of_line)
 	return (new_rest);
 }
 
+/*Esta funcion es para liberar la memoria del contenido e igualarlo a NULL*/
 char	*ft_free(char **s)
 {
 	free(*s);
@@ -88,6 +92,7 @@ char	*ft_free(char **s)
 	return (NULL);
 }
 
+/*Esta funcion es la principar donde llamaremos a las otras funciones creadas*/
 char	*get_next_line(int fd)
 {
 	static char	*rest_of_line = NULL;

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/08 22:09:26 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:07:37 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	checker(char *str)
 /*ahora necestio un funcion para crear un nodo i iguradar el valor de ft_aoti en el nodo*/
 /*funcion addback para agregar el nodo a la lista */
 /*funcion para recorer la lista en busca del mismo numero para ver si se repite*/
+
+t_list	*stack_a(int atoi)
+{
+	return (stack);
+}
 
 int	main(int ac, char *av[])
 {

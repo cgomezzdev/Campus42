@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_newlst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/13 21:55:32 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/05/13 21:10:54 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/05/13 21:24:08 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
-# define PUSH_SWAP
+#include "push_swap.h"
 
-# include <limits.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-typedef struct s_list
+t_list	*ft_newlst(int num)
 {
-	struct s_list	*next;
-	void			*content;
-}					t_list;
+	t_list	*lst;
 
-int					ft_isdigit(int c);
-int long			ft_atoi(const char *str, int *flagr);
-t_list				*ft_newlst(int num);
-
-#endif
+	lst = malloc(sizeof(t_list));
+	if (lst = NULL)
+		return (NULL);
+	lst->content = num;
+	lst->next = NULL;
+	return (lst);
+}

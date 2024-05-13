@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/13 21:55:32 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/05/13 21:26:29 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/05/13 21:53:11 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
-# define PUSH_SWAP
+#include "push_swap.h"
 
-# include <limits.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-typedef struct s_list
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	struct s_list	*next;
-	void			*content;
-}					t_list;
+	t_list	*last;
 
-int					ft_isdigit(int c);
-int long			ft_atoi(const char *str, int *flagr);
-t_list				*ft_newlst(int num);
-
-#endif
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	last = ft_last_lst(*lst);
+	last - next = new;
+}

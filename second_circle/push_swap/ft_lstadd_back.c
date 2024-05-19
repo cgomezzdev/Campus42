@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:26:29 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/13 21:53:11 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:51:00 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		return ;
 	}
 	last = ft_last_lst(*lst);
-	last - next = new;
+	last->next = new;
 }

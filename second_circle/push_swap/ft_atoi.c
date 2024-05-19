@@ -6,13 +6,13 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:21:37 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/14 20:41:19 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:47:10 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int long	ft_atoi(const char *str, int *flagr)
+int long	ft_atoi(char *str, int *flagr)
 {
 	int long	num;
 	int			i;

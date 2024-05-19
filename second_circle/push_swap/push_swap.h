@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/13 21:55:32 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:47:27 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
 	struct s_list	*next;
-	void			*content;
+	int				content;
 }					t_list;
 
 int					ft_isdigit(int c);
-int long			ft_atoi(const char *str, int *flagr);
+int long			ft_atoi(char *str, int *flagr);
 t_list				*ft_newlst(int num);
+t_list				*ft_last_lst(t_list *lst);
+void				ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

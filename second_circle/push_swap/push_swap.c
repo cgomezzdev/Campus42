@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/14 21:25:48 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:03:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ static int	checker(char *str)
 	return (r);
 }
 
-static int	arg_checker(char *av, int flagr)
+static int	arg_checker(char **av, int flagr)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (av[i] != NULL)
 	{
 		write(1, "a", 1);
+		// printf("Numeros: %s\n", av[i]);
 		if (checker(av[i]) != -1)
 			ft_atoi(av[i], &flagr);
 		else
-			return (write(1, "CHECK\n", 6), 1);
+			return (write(1, "CHECK\n", 6), -1);
 		if (flagr == 1)
-			return (write(1, "flag\n", 5), 1);
+			return (write(1, "flag\n", 5), -1);
 		i++;
 	}
 	return (1);
@@ -70,7 +71,9 @@ static t_list	*make_stack_a(char **av)
 	i = 1;
 	while (av[i])
 	{
-		num = ft_atoi(av[i], &num);
+		num = ft_atoi(av[i], 0);
+		printf("Num nodo: %i\n", num);
+		// write(1, "n", 1);
 		tmp = ft_newlst(num);
 		ft_lstadd_back(&stack_a, tmp);
 		i++;
@@ -80,21 +83,16 @@ static t_list	*make_stack_a(char **av)
 
 int	main(int ac, char *av[])
 {
-	int	i;
 	int	flagr;
 
-	i = 1;
 	flagr = 0;
-	if (ac == 1)
+	if (ac == 2)
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
-	if (arg_checker(av[i], flagr) == 1)
-	{
-		while (av[i])
-			make_stack_a(av[i]);
-	}
+	if (arg_checker(av, flagr) == 1)
+		make_stack_a(av);
 	write(1, "\n", 1);
 	return (0);
 }

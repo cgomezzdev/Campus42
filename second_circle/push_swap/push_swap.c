@@ -6,14 +6,14 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/19 19:03:57 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/21 21:46:47 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*ahora que le paso por parametros los argumentos quiero comprobar que sean numeros*/
-static int	checker(char *str)
+static int	checker_digits(char *str)
 {
 	int	i;
 	int	r;
@@ -36,6 +36,9 @@ static int	checker(char *str)
 	return (r);
 }
 
+/*Ahora que he confirmado que son numeros los paso a int con el atoi,en el cual tengo una
+ flag que me dice si alguno de los numeros se pasa del max y el min int si esto pasa retorna error.*/
+
 static int	arg_checker(char **av, int flagr)
 {
 	int	i;
@@ -45,7 +48,7 @@ static int	arg_checker(char **av, int flagr)
 	{
 		write(1, "a", 1);
 		// printf("Numeros: %s\n", av[i]);
-		if (checker(av[i]) != -1)
+		if (checker_digits(av[i]) != -1)
 			ft_atoi(av[i], &flagr);
 		else
 			return (write(1, "CHECK\n", 6), -1);
@@ -76,6 +79,7 @@ static t_list	*make_stack_a(char **av)
 		// write(1, "n", 1);
 		tmp = ft_newlst(num);
 		ft_lstadd_back(&stack_a, tmp);
+		free(tmp);
 		i++;
 	}
 	return (stack_a);

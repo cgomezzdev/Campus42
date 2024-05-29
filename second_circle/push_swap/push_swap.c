@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/21 21:46:47 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:30:26 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ static t_list	*make_stack_a(char **av)
 		ft_lstadd_back(&stack_a, tmp);
 		free(tmp);
 		i++;
+	}
+	if (ft_checkrepeat(stack_a) == -1)
+	{
+		printf("ERROR\n");
+		exit(1); // crear una funcion para eliminar la lista.
 	}
 	return (stack_a);
 }

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/21 21:29:23 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:16:52 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define PUSH_SWAP
 
 # include <limits.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_list
 {
@@ -29,6 +29,6 @@ int long			ft_atoi(char *str, int *flagr);
 t_list				*ft_newlst(int num);
 t_list				*ft_last_lst(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstiter(t_list *lst, void (*f)(int n));
+int					ft_checkrepeat(t_list *lst);
 
 #endif

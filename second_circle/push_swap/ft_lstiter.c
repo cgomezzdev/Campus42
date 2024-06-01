@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 21:19:17 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/29 21:17:34 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:29:09 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_checkrepeat(t_list *lst)
 	t_list	*tmp2;
 
 	tmp1 = lst;
-	while (tmp1)
+	while (tmp1->next != NULL)
 	{
 		tmp2 = tmp1->next;
 		while (tmp2)

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/29 21:30:26 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:30:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,24 @@ static t_list	*make_stack_a(char **av)
 	{
 		num = ft_atoi(av[i], 0);
 		printf("Num nodo: %i\n", num);
-		// write(1, "n", 1);
 		tmp = ft_newlst(num);
 		ft_lstadd_back(&stack_a, tmp);
-		free(tmp);
 		i++;
 	}
 	if (ft_checkrepeat(stack_a) == -1)
 	{
 		printf("ERROR\n");
-		exit(1); // crear una funcion para eliminar la lista.
+		// exit(1); crear una funcion para eliminar la lista.
 	}
 	return (stack_a);
 }
 
 int	main(int ac, char *av[])
 {
-	int	flagr;
+	int		flagr;
+	t_list	*a;
 
+	a = NULL;
 	flagr = 0;
 	if (ac == 2)
 	{
@@ -101,7 +101,8 @@ int	main(int ac, char *av[])
 		return (0);
 	}
 	if (arg_checker(av, flagr) == 1)
-		make_stack_a(av);
+		a = make_stack_a(av);
+	ft_printlst(&a);
 	write(1, "\n", 1);
 	return (0);
 }

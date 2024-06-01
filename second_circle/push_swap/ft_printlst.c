@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_printlst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 21:26:29 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/01 19:29:58 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/06/01 18:04:51 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/06/01 19:18:15 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_printlst(t_list **lst)
 {
-	t_list	*last;
-
-	if (!(*lst))
+	printf("List: ");
+	while (*lst != NULL)
 	{
-		*lst = new;
-		return ;
+		printf("%i ", (*lst)->content);
+		*lst = (*lst)->next;
 	}
-	last = ft_last_lst(*lst);
-	last->next = new;
+	printf("done\n");
 }

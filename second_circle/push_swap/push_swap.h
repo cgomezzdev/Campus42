@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/05/29 21:16:52 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:53:56 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_list				*ft_newlst(int num);
 t_list				*ft_last_lst(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 int					ft_checkrepeat(t_list *lst);
+void				ft_printlst(t_list **lst);
 
 #endif

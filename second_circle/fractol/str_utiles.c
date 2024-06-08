@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   str_utiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 18:47:15 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/08 19:42:06 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/06/08 17:59:06 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/06/08 19:37:55 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	main(int ac, char *av[])
+int	ft_strncmp(char *s1, char *s2, int n)
 {
-	if ((ac == 2 && !ft_strncmp(av[1], "mandelbrot", 10)) || (ac == 4
-		&& !ft_strncmp(av[1], "julia", 5)))
+	int	i;
+
+	if (s1 == NULL || s2 == NULL || n <= 0)
+		return (0);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && n > 0)
 	{
-		printf("All good!\n");
+		if (s1[i] == s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+		n--;
 	}
-	else
-	{
-		printf("Error\n");
-	}
-	return (0);
+	return (s1[i] - s2[i]);
 }

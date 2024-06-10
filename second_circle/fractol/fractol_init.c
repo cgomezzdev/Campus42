@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utiles.c                                       :+:      :+:    :+:   */
+/*   fractol_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 17:59:06 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/10 17:36:58 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/06/10 20:01:14 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/06/10 20:55:27 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	ft_strncmp(char *s1, char *s2, int n)
+void fractol_init(t_fractol *fractol)
 {
-	int	i;
-
-	if (s1 == NULL || s2 == NULL || n <= 0)
-		return (0);
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && n > 0)
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-		n--;
-	}
-	return (s1[i] - s2[i]);
+	fractol->mlx_connection = mlx_init();
+	if (fractol)
 }

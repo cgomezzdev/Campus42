@@ -6,7 +6,7 @@
 #    By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 21:19:09 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/06/10 21:36:24 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/06/12 19:38:33 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = fractol
 CC = gcc
-CFLAGS  = -Wall -Wextra -I/usr/include -Iminilibx-linux -O3# C Flags (gcc) & linking. "-Iinclude" if you created the folder "include" to put your project headers"
+CFLAGS  = -I/usr/include -Iminilibx-linux -O3# C Flags (gcc) & linking. "-Iinclude" if you created the folder "include" to put your project headers"
 LFLAGS  = -Lminilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Iminilibx-linux #if you decided to install libmlx.a locally you don't need "-L$(LIBMLX) -lmlx" the school also has it locally as well...
 #CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 

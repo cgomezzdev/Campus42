@@ -6,7 +6,7 @@
 #    By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 21:19:09 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/06/12 19:38:33 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/06/15 18:34:16 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LFLAGS  = -Lminilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Iminilib
 #<------------->FILES<------------->
 
 HEADER = fractol.h
-C_FILES = fractol.c str_utiles.c
+C_FILES = fractol.c str_utiles.c fractol_init.c
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->

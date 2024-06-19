@@ -6,18 +6,18 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:47:15 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/15 18:33:51 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:53:49 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	*dst;
+	char	offset;
 
-	dst = data->pixels_ptr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
+	off_set = img->pixels_ptr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)offset = color;
 }
 
 int	main(int ac, char *av[])
@@ -30,6 +30,7 @@ int	main(int ac, char *av[])
 		printf("All good!\n");
 		fract.name = av[1];
 		fractol_init(&fract);
+		fractol_render(&fract);
 		mlx_loop(fract.mlx_connection);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:10:31 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/18 22:21:35 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:37:37 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_fractol{
 
 int	ft_strncmp(char *s1, char *s2, int n);
 void fractol_init(t_fractol *fractol);
+void fractol_render(t_fractol *fractol);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex sum_complex(t_complex z1,t_complex z2);
 t_complex square_complex(t_complex z);
 

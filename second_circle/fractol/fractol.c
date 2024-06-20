@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:47:15 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/19 19:53:49 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:35:19 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	offset;
+	int	off_set;
 
-	off_set = img->pixels_ptr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)offset = color;
+	off_set = (y * img->line_len) + (x * (img->bpp / 8));
+	*(unsigned int *)(img->pixels_ptr + off_set) = color;
 }
 
 int	main(int ac, char *av[])

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utiles.c                                       :+:      :+:    :+:   */
+/*   fractol_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 17:59:06 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/10 17:36:58 by cgomez-z         ###   ########.fr       */
+/*   Created: 2024/06/18 21:54:59 by cgomez-z          #+#    #+#             */
+/*   Updated: 2024/06/20 21:12:19 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,24 @@ int	ft_strncmp(char *s1, char *s2, int n)
 		n--;
 	}
 	return (s1[i] - s2[i]);
+}
+
+t_complex	sum_complex(t_complex z1, t_complex z2)
+{
+	t_complex	res;
+
+	res.x = z1.x + z2.x;
+	res.y = z1.y + z2.y;
+	return (res);
+}
+/*Funcion para calucular numero real e imaginario
+  real = (x^2 - y^2)
+  imaginario = 2*x*y*/
+t_complex	square_complex(t_complex z)
+{
+	t_complex	res;
+
+	res.x = (z.x * z.x) - (z.y * z.y);
+	res.y = 2 * z.x * z.y;
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:10:31 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/20 21:37:37 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:56:14 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <X11/X.h>
 #include <mlx.h>
 
 typedef struct s_complex{
@@ -38,7 +39,8 @@ typedef struct s_fractol{
 	void *mlx_connection;
 	void *mlx_window;
 	t_img img;
-	double escape_v;
+	double move_x;
+	double move_y;
 } t_fractol;
 
 int	ft_strncmp(char *s1, char *s2, int n);
@@ -47,6 +49,7 @@ void fractol_render(t_fractol *fractol);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex sum_complex(t_complex z1,t_complex z2);
 t_complex square_complex(t_complex z);
+int handle_key(int keycode);
 
 
 

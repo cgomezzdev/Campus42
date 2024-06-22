@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 18:53:17 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/20 22:09:46 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:56:01 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	handle_piexl(int x, int y, t_fractol *fractol)
 
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = map_scale(x, -2, +2, 0, 799);
-	c.y = map_scale(y, +2, -2, 0, 799);
+	c.x = map_scale(x, -2, +2, 0, 799) + fractol->move_x;
+	c.y = map_scale(y, +2, -2, 0, 799) + fractol->move_y;
 	// Bucle para cuantas veces queremos iterar cuanto mas iteramos mas definicion
 	// pero tambien le costara mas trabajo renderizar.
 	i = 0;
@@ -42,13 +42,13 @@ static void	handle_piexl(int x, int y, t_fractol *fractol)
 		// Si la hipotenusa es mayour que 2 asumimis que el punto esta fuera.
 		if ((z.x * z.x) + (z.y * z.y) > 4)
 		{
-			color = map_scale(i, 0xFFFFFF, 0X000000, 0, iter);
+			color = map_scale(i, 0X0000FF, 0XFFFFFF, 0, iter);
 			my_mlx_pixel_put(&fractol->img, x, y, color);
 			return ;
 		}
 		i++;
 	}
-	my_mlx_pixel_put(&fractol->img, x, y, 0x0000FF);
+	my_mlx_pixel_put(&fractol->img, x, y, 0X000000);
 }
 
 void	fractol_render(t_fractol *fractol)

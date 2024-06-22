@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 21:54:59 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/20 21:12:19 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:53:14 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,17 @@ t_complex	square_complex(t_complex z)
 	res.x = (z.x * z.x) - (z.y * z.y);
 	res.y = 2 * z.x * z.y;
 	return (res);
+}
+
+int	handle_key(int keycode)
+{
+	printf("Key pressed:%d\n", keycode);
+	if (keycode == XK_Escape)
+		handle_close(fractol);
+	return (0);
+}
+// int handle_mouse(int button,int x,int y,t_fractol *fractol)
+int handle_close(t_fractol *fractol)
+{
+	mlx_hook(fractol->mlx_window,KeyPress,KeyPressMask,close,fractol)
 }

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 18:53:17 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/22 18:56:01 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:46:19 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void	handle_piexl(int x, int y, t_fractol *fractol)
 
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = map_scale(x, -2, +2, 0, 799) + fractol->move_x;
-	c.y = map_scale(y, +2, -2, 0, 799) + fractol->move_y;
+	c.x = (map_scale(x, -2, +2, 0, 799)* fractol->scale) + fractol->move_x;
+	c.y = (map_scale(y, +2, -2, 0, 799)* fractol->scale) + fractol->move_y;
 	// Bucle para cuantas veces queremos iterar cuanto mas iteramos mas definicion
 	// pero tambien le costara mas trabajo renderizar.
 	i = 0;
-	iter = 42;
+	iter = 80;
 	while (i < iter)
 	{
 		z = sum_complex(square_complex(z), c);

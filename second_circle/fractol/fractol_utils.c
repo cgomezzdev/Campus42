@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 21:54:59 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/22 18:53:14 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:07:14 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,39 @@ t_complex	square_complex(t_complex z)
 	return (res);
 }
 
-int	handle_key(int keycode)
+int	handle_close(t_fractol *fractol)
 {
-	printf("Key pressed:%d\n", keycode);
-	if (keycode == XK_Escape)
+	mlx_destroy_image(fractol->mlx_connection, fractol->img.img_ptr);
+	mlx_destroy_window(fractol->mlx_connection, fractol->mlx_window);
+	mlx_destroy_display(fractol->mlx_connection);
+	free(fractol->mlx_connection);
+	exit(EXIT_SUCCESS);
+}
+
+int	handle_key(int k_pressed, t_fractol *fractol)
+{
+	printf("Key pressed:%d\n", k_pressed);
+	if (k_pressed == 65307)
+		// Chekear esta parte porque deferia funcionar la la variable de la liberia.
 		handle_close(fractol);
+	else if (k_pressed == 65363)
+		fractol->move_x += 0.5;
+	else if (k_pressed == 65361)
+		fractol->move_x -= 0.5;
+	else if (k_pressed == 65362)
+		fractol->move_y += 0.5;
+	else if (k_pressed == 65364)
+		fractol->move_y -= 0.5;
+	fractol_render(fractol);
 	return (0);
 }
-// int handle_mouse(int button,int x,int y,t_fractol *fractol)
-int handle_close(t_fractol *fractol)
+int	handle_mouse(int b_pressed, t_fractol *fractol)
 {
-	mlx_hook(fractol->mlx_window,KeyPress,KeyPressMask,close,fractol)
+	/*if (b_pressed == 4)
+		fractol->scale *= 1.05;
+	else if (b_pressed == 5)
+		fractol->scale *= 0.92;*/
+	printf("Key pressed:%d\n", b_pressed);
+	fractol_render(fractol); // Para actualizar los datos.
+	return (0);
 }

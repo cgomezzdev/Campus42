@@ -60,9 +60,9 @@ int	handle_close(t_fractol *fractol)
 
 int	handle_key(int k_pressed, t_fractol *fractol)
 {
-	printf("Key pressed:%d\n", k_pressed);
+	//printf("Key pressed:%d\n", k_pressed);
+	// Chekear esta parte porque deferia funcionar la la variable de la liberia.
 	if (k_pressed == 65307)
-		// Chekear esta parte porque deferia funcionar la la variable de la liberia.
 		handle_close(fractol);
 	else if (k_pressed == 65363)
 		fractol->move_x += 0.5;
@@ -75,13 +75,14 @@ int	handle_key(int k_pressed, t_fractol *fractol)
 	fractol_render(fractol);
 	return (0);
 }
-int	handle_mouse(int b_pressed, t_fractol *fractol)
+int	handle_mouse(int b_pressed,int x, int y, t_fractol *fractol)
 {
-	/*if (b_pressed == 4)
+	printf("x%d and y%d\n",x,y);
+	printf("mouse pressed:%d\n", b_pressed);
+	if (b_pressed == 4)
 		fractol->scale *= 1.05;
 	else if (b_pressed == 5)
-		fractol->scale *= 0.92;*/
-	printf("Key pressed:%d\n", b_pressed);
+		fractol->scale *= 0.92;
 	fractol_render(fractol); // Para actualizar los datos.
 	return (0);
 }

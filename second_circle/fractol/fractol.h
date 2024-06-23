@@ -52,7 +52,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 t_complex sum_complex(t_complex z1,t_complex z2);
 t_complex square_complex(t_complex z);
 int handle_key(int k_pressed,t_fractol *fractol);
-int handle_mouse(int b_pressed,t_fractol *fractol);
+int handle_mouse(int b_pressed,int x, int y, t_fractol *fractol);
 int handle_close(t_fractol *fractol);
 
 

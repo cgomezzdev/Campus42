@@ -26,11 +26,9 @@ void fractol_data(t_fractol *fractol)
 //Funcion para escuchar los eventos.
 static void	fractol_events(t_fractol *fractol)
 {
+	mlx_mouse_hook(fractol->mlx_window, handle_mouse, fractol);
 	mlx_hook(fractol->mlx_window, KeyPress, KeyPressMask, handle_key, fractol);
-	mlx_hook(fractol->mlx_window,ButtonPress,ButtonPressMask,handle_mouse,fractol);
-	printf("FRECTOL EVENTS\n");
-	mlx_hook(fractol->mlx_window, DestroyNotify, EnterWindowMask, handle_close,
-		fractol);
+	mlx_hook(fractol->mlx_window, DestroyNotify, EnterWindowMask, handle_close, fractol);
 }
 
 void	fractol_init(t_fractol *fractol)
@@ -55,6 +53,6 @@ void	fractol_init(t_fractol *fractol)
 	}
 	fractol->img.pixels_ptr = mlx_get_data_addr(fractol->img.img_ptr,
 			&fractol->img.bpp, &fractol->img.line_len, &fractol->img.endian);
-	fractol_events(fractol);
 	fractol_data(fractol);
+	fractol_events(fractol);
 }

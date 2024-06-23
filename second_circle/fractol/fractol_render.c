@@ -35,7 +35,7 @@ static void	handle_piexl(int x, int y, t_fractol *fractol)
 	// Bucle para cuantas veces queremos iterar cuanto mas iteramos mas definicion
 	// pero tambien le costara mas trabajo renderizar.
 	i = 0;
-	iter = 80;
+	iter = 30;
 	while (i < iter)
 	{
 		z = sum_complex(square_complex(z), c);
@@ -55,7 +55,6 @@ void	fractol_render(t_fractol *fractol)
 {
 	int	x;
 	int	y;
-
 	y = -1;
 	while (++y < 800)
 	{
@@ -66,6 +65,6 @@ void	fractol_render(t_fractol *fractol)
 		}
 	}
 	mlx_put_image_to_window(fractol->mlx_connection,
-		fractol->mlx_window, fractol->img.img_ptr, 0, 0);
+	fractol->mlx_window, fractol->img.img_ptr, 0, 0);
 
 }

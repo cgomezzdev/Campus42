@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:47:15 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/23 19:51:08 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/24 22:05:58 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	main(int ac, char *av[])
 	{
 		printf("All good!\n");
 		fract.name = av[1];
+		//Julia paramaetros entre 2 y -2.
+		fract.julia_x = 0.285;//atof(av[2]);
+		fract.julia_y = -0.01;//atof(av[3]);
 		fractol_init(&fract);
 		fractol_render(&fract);
 		mlx_loop(fract.mlx_connection);

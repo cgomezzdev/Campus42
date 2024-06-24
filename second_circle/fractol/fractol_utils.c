@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 21:54:59 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/23 21:07:14 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:52:30 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,13 @@ int	handle_mouse(int b_pressed,int x, int y, t_fractol *fractol)
 	printf("x%d and y%d\n",x,y);
 	printf("mouse pressed:%d\n", b_pressed);
 	if (b_pressed == 4)
-		fractol->scale *= 1.05;
-	else if (b_pressed == 5)
 		fractol->scale *= 0.92;
+	else if (b_pressed == 5)
+		fractol->scale *= 1.04;
+	else if (b_pressed == 1)
+		fractol->iter += 10;
+	else if (b_pressed == 3)
+		fractol->iter -= 10;
 	fractol_render(fractol); // Para actualizar los datos.
 	return (0);
 }

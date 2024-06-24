@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 20:01:14 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/23 21:03:36 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/24 20:35:05 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void fractol_data(t_fractol *fractol)
 	fractol->move_x = 0.0;
 	fractol->move_y = 0.0;
 	fractol->scale = 1.0;
+	fractol->iter = 42;
 }
 //Funcion para escuchar los eventos.
 static void	fractol_events(t_fractol *fractol)

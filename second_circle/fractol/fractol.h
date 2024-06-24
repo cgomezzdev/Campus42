@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:10:31 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/23 20:43:37 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/24 20:31:49 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ typedef struct s_fractol{
 	t_img img;
 	double move_x;
 	double move_y;
+	double julia_x;
+	double julia_y;
 	double scale;
+	int iter;
 } t_fractol;
 
 int	ft_strncmp(char *s1, char *s2, int n);
@@ -54,6 +57,7 @@ t_complex square_complex(t_complex z);
 int handle_key(int k_pressed,t_fractol *fractol);
 int handle_mouse(int b_pressed,int x, int y, t_fractol *fractol);
 int handle_close(t_fractol *fractol);
+//double atod(char *s);
 
 
 

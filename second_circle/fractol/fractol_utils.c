@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 21:54:59 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/24 17:52:30 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/27 21:19:32 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,50 @@ int	ft_strncmp(char *s1, char *s2, int n)
 		n--;
 	}
 	return (s1[i] - s2[i]);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		write(fd, s + i++, 1);
+}
+
+double	ft_atod(char *s)
+{
+	double	d;
+	double	pow;
+	int		u;
+	int		i;
+	int		sign;
+
+	i = 0;
+	sign = 1;
+	pow = 1;
+	u = 0;
+	d = 0;
+	while (s[i] == '-' || s[i] == '+')
+	{
+		if (s[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while ((s[i] >= '9' && s[i] <= '0') || s[i] != '.')
+	{
+		u = (u * 10) + (s[i] - '0');
+		i++;
+	}
+	if (s[i] == '.')
+		i++;
+	while ((s[i] >= '9' && s[i] <= '0') || s[i])
+	{
+		pow /= 10;
+		d += (s[i] - '0') * pow;
+		i++;
+	}
+	return ((u + d) * sign);
 }
 
 t_complex	sum_complex(t_complex z1, t_complex z2)
@@ -65,20 +109,25 @@ int	handle_key(int k_pressed, t_fractol *fractol)
 	if (k_pressed == 65307)
 		handle_close(fractol);
 	else if (k_pressed == 65363)
-		fractol->move_x += 0.5;
+		fractol->move_x += 0.3;
 	else if (k_pressed == 65361)
-		fractol->move_x -= 0.5;
+		fractol->move_x -= 0.3;
 	else if (k_pressed == 65362)
-		fractol->move_y += 0.5;
+		fractol->move_y += 0.3;
 	else if (k_pressed == 65364)
-		fractol->move_y -= 0.5;
+		fractol->move_y -= 0.3;
+	else if (k_pressed == 32)
+		fractol_data(fractol);
 	fractol_render(fractol);
 	return (0);
 }
-int	handle_mouse(int b_pressed,int x, int y, t_fractol *fractol)
+
+int	handle_mouse(int b_pressed, int x, int y, t_fractol *fractol)
 {
-	printf("x%d and y%d\n",x,y);
-	printf("mouse pressed:%d\n", b_pressed);
+	(void)x;
+	(void)y;
+	//printf("x%d and y%d\n", x, y);
+	//printf("mouse pressed:%d\n", b_pressed);
 	if (b_pressed == 4)
 		fractol->scale *= 0.92;
 	else if (b_pressed == 5)

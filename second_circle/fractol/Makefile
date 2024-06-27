@@ -6,7 +6,7 @@
 #    By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 21:19:09 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/06/20 21:22:19 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/06/27 20:24:54 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = fractol
 CC = gcc
 CFLAGS  = -I/usr/include -Iminilibx-linux -O3# C Flags (gcc) & linking. "-Iinclude" if you created the folder "include" to put your project headers"
 LFLAGS  = -Lminilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Iminilibx-linux #if you decided to install libmlx.a locally you don't need "-L$(LIBMLX) -lmlx" the school also has it locally as well...
-#CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 #<------------->FILES<------------->
 
@@ -33,7 +33,7 @@ make_libs:
 	
 %.o:%.c $(HEADER) Makefile mlx_linux/libmlx_Linux.a
 	@echo "Compiling...> $<"
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -c $< -o $@
 
 $(NAME): $(O_FILES)
 	@echo "Compiling file>"

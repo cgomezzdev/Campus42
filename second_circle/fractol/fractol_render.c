@@ -6,18 +6,16 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 18:53:17 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/24 21:57:55 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:02:38 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// Funcion para escalar la imagen del ancho de la pantalla a lo que necestiamos mostar.
 double	map_scale(double scaled_num, double new_min, double new_max,
-		double old_min, double old_max)
+		double old_max)
 {
-	return ((new_max - new_min) * (scaled_num - old_min) / (old_max - old_min)
-		+ new_min);
+	return ((new_max - new_min) * (scaled_num - 0) / (old_max - 0) + new_min);
 }
 
 static void	mandel_or_juli(t_complex *z, t_complex *c, t_fractol *fractol)
@@ -33,6 +31,7 @@ static void	mandel_or_juli(t_complex *z, t_complex *c, t_fractol *fractol)
 		c->y = z->y;
 	}
 }
+
 static void	handle_piexl(int x, int y, t_fractol *fractol)
 {
 	t_complex	z;
@@ -40,19 +39,16 @@ static void	handle_piexl(int x, int y, t_fractol *fractol)
 	int			i;
 	int			color;
 
-	z.x = (map_scale(x, -2, +2, 0, 799) * fractol->scale) + fractol->move_x;
-	z.y = (map_scale(y, +2, -2, 0, 799) * fractol->scale) + fractol->move_y;
+	z.x = (map_scale(x, -2, +2, 799) * fractol->scale) + fractol->move_x;
+	z.y = (map_scale(y, +2, -2, 799) * fractol->scale) + fractol->move_y;
 	mandel_or_juli(&z, &c, fractol);
-	// Bucle para cuantas veces queremos iterar cuanto mas iteramos mas definicion
-	// pero tambien le costara mas trabajo renderizar.
 	i = 0;
 	while (i < fractol->iter)
 	{
 		z = sum_complex(square_complex(z), c);
-		// Si la hipotenusa es mayour que 2 asumimis que el punto esta fuera.
 		if ((z.x * z.x) + (z.y * z.y) > 4)
 		{
-			color = map_scale(i, 0X0000FF, 0XFFFFFF, 0, fractol->iter);
+			color = map_scale(i, 0X0000FF, 0XFFFFFF, fractol->iter);
 			my_mlx_pixel_put(&fractol->img, x, y, color);
 			return ;
 		}

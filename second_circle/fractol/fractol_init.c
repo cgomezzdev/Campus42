@@ -6,37 +6,39 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 20:01:14 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/24 20:35:05 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:01:45 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	malloc_error(void)
+static int	malloc_error(void)
 {
-	printf("Problem with malloc\n");
+	ft_putstr_fd("Problem with malloc\n", 2);
+	return (1);
 }
 
-void fractol_data(t_fractol *fractol)
+void	fractol_data(t_fractol *fractol)
 {
 	fractol->move_x = 0.0;
 	fractol->move_y = 0.0;
 	fractol->scale = 1.0;
 	fractol->iter = 42;
 }
-//Funcion para escuchar los eventos.
+
 static void	fractol_events(t_fractol *fractol)
 {
 	mlx_mouse_hook(fractol->mlx_window, handle_mouse, fractol);
 	mlx_hook(fractol->mlx_window, KeyPress, KeyPressMask, handle_key, fractol);
-	mlx_hook(fractol->mlx_window, DestroyNotify, EnterWindowMask, handle_close, fractol);
+	mlx_hook(fractol->mlx_window, DestroyNotify, EnterWindowMask, handle_close,
+		fractol);
 }
 
-void	fractol_init(t_fractol *fractol)
+int	fractol_init(t_fractol *fractol)
 {
 	fractol->mlx_connection = mlx_init();
-	if (fractol == NULL)
-		malloc_error();
+	if (fractol->mlx_connection == NULL)
+		return (malloc_error());
 	fractol->mlx_window = mlx_new_window(fractol->mlx_connection, 800, 800,
 			fractol->name);
 	if (fractol->mlx_window == NULL)
@@ -50,10 +52,11 @@ void	fractol_init(t_fractol *fractol)
 		mlx_destroy_window(fractol->mlx_connection, fractol->mlx_window);
 		mlx_destroy_display(fractol->mlx_connection);
 		free(fractol->mlx_connection);
-		malloc_error();
+		return (malloc_error());
 	}
 	fractol->img.pixels_ptr = mlx_get_data_addr(fractol->img.img_ptr,
 			&fractol->img.bpp, &fractol->img.line_len, &fractol->img.endian);
 	fractol_data(fractol);
 	fractol_events(fractol);
+	return (0);
 }

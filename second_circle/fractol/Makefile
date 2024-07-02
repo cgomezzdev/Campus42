@@ -6,7 +6,7 @@
 #    By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 21:19:09 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/06/27 20:24:54 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/06/29 19:02:52 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@
 
 NAME = fractol
 CC = gcc
-CFLAGS  = -I/usr/include -Iminilibx-linux -O3# C Flags (gcc) & linking. "-Iinclude" if you created the folder "include" to put your project headers"
-LFLAGS  = -Lminilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Iminilibx-linux #if you decided to install libmlx.a locally you don't need "-L$(LIBMLX) -lmlx" the school also has it locally as well...
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS  = -Wall -Wextra -Werror -g -O2 -I/usr/include -Imlx_linux
+LFLAGS  = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 
 #<------------->FILES<------------->
 
 HEADER = fractol.h
-C_FILES = fractol.c fractol_utils.c fractol_init.c fractol_render.c
+C_FILES = fractol.c fractol_init.c fractol_render.c fractol_str_utils.c fractol_utils.c \
+		  fractol_handler.c fractol_atod.c
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->
@@ -33,15 +33,12 @@ make_libs:
 	
 %.o:%.c $(HEADER) Makefile mlx_linux/libmlx_Linux.a
 	@echo "Compiling...> $<"
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(O_FILES)
 	@echo "Compiling file>"
-	$(CC) $(O_FILES) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(O_FILES) $(LFLAGS) -o $(NAME)
 	
-#$(NAME):
-#	@echo "$(NAME) compiled"
-
 #<------------->PHONY<------------->
 
 clean:

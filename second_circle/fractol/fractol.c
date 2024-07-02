@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:47:15 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/02 18:48:08 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:45:09 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int	main(int ac, char *av[])
 		if (mandelbrot(fract))
 			return (1);
 	}
-	else if (ac == 2 && !ft_strncmp(av[1], "julia", 5))
+	else if ((ac > 1) && (ac < 4) && !ft_strncmp(av[1], "julia", 5))
 	{
 		ft_putstr_fd("You have to put 2 doubles after julia\n", 2);
 		ft_putstr_fd("You can put julia 0.285 -0.01\n", 2);
 		return (1);
 	}
-	else if ((ac > 1) && (ac < 5) && !ft_strncmp(av[1], "julia", 5))
+	else if (ac == 4 && !ft_strncmp(av[1], "julia", 5))
 	{
 		fract.name = av[1];
 		if (julia(av, fract))

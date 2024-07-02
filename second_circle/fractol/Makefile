@@ -6,15 +6,15 @@
 #    By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 21:19:09 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/06/29 19:02:52 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/07/02 21:29:18 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #<------------->CONFIG<------------->
 
 NAME = fractol
-CC = gcc
-CFLAGS  = -Wall -Wextra -Werror -g -O2 -I/usr/include -Imlx_linux
+CC = cc
+CFLAGS  = -Wall -Wextra -Werror -g -O2 -I/usr/include -Imlx_linux -fsanitize=leak
 LFLAGS  = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 
 #<------------->FILES<------------->

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 20:01:14 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/02 19:01:45 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:42:52 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	fractol_init(t_fractol *fractol)
 	{
 		mlx_destroy_display(fractol->mlx_connection);
 		free(fractol->mlx_connection);
+		return (malloc_error());
 	}
 	fractol->img.img_ptr = mlx_new_image(fractol->mlx_connection, 800, 800);
 	if (fractol->img.img_ptr == NULL)

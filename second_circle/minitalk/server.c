@@ -6,14 +6,19 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/03 19:26:25 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:23:40 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+/*El servidor debe lanzarse primero y tras esto debe mostrar su PID.
+El servidor debe ser capaz de mostrar la string suficientemente rapido.
+El servidor debe poder recibir string de distintos cliente consectuviamente sin reiniciarse.
+Solo puedes utilizar estas dos signals SIGUSR1 y SIGUSR2.
+BONUS
+El servidor confirma cada signal recibida mandando una singal al cliente.
+Soporta los caracteres Unicode.*/
+
+#include "minitalk.h"
 
 void	handler_sigint(int sig)
 {

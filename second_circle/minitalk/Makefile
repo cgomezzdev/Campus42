@@ -6,39 +6,47 @@
 #    By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 20:13:13 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/07/04 18:26:37 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/07/06 19:33:20 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #<------------->CONFIG<------------->
 
-NAME = minitalk
+SERVER = server
+CLIENT = client
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 #<------------->FILES<------------->
 
-CFILES = server.c client.c
-OFILES = $(CFILES:.c=.o)
+#CFILES = server.c client.c
+#OFILES = $(CFILES:.c=.o)
 
 #<------------->RULES<------------->
 
-all: $(NAME)
+all: $(SERVER) $(CLIENT)
 
-%.o:%.c minitalk.h Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OFILES)
-	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
+$(SERVER): server.c
+	cc server.c -o $@
+
+$(CLIENT): client.c
+	cc client.c -o $@
+
+#%.o:%.c minitalk.h Makefile
+#	$(CC) $(CFLAGS) -c $< -o $@
+#
+#$(NAME): $(OFILES)
+#	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
 
 
 #<------------->PHONY<------------->
 
 clean:
-	$(RM) $(OFILES)
+	$(RM) $(SERVER) $(CLIENT) #$(OFILES)
 
 fclean: clean
-	$(RM) $(NAME)
+#	$(RM) $(NAME)
 
 re: fclean all
 

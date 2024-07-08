@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/06 19:25:24 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:41:33 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,38 @@ Soporta los caracteres Unicode.*/
 #include <stdlib.h>
 #include <unistd.h>
 
-/*void	handler_sigint(int sig)
+void	strtbits(int pid, int c)
 {
-	write(1, "sign", 4);
+	int	i;
+
+	i = 7;
+	while (i >= 0)
+	{
+		if (c & (1 << i))
+		{
+			kill(pid, SIGUSR1);
+			usleep(1);
+		}
+		else
+		{
+			kill(pid, SIGUSR2);
+			usleep(1);
+		}
+		write(1, &i, 1);
+		write(1, "\n", 1);
+		i--;
+	}
 }
-*/
+
 int	main(int ac, char *av[])
 {
-	int pid;
+	int	pid;
 
+	// char	*c;
 	pid = atoi(av[1]);
-	printf("%i\n",pid);
-	kill(pid,12);
-	kill(pid,SIGUSR1);
+	// c = av[2];
+	strtbits(pid, 'c');
+	printf("%i\n", pid);
+	// kill(pid, SIGUSR1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/06 19:31:04 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:26:26 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,25 @@ Soporta los caracteres Unicode.*/
 # include <stdlib.h>
 # include <unistd.h>
 
+
+void ft_putstr(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	write(1,&s,i);
+}
+
 void	handler_sigint1(int sig)
 {
-	printf("signal1: %i\n", sig);
+//	static int i = 0;
+	if (sig == 10)
+		write(1,"0\n",2);
+	else if (sig == 12)
+		write(1,"1\n",2);
+	//ft_putstr("it works");
 }
 
 int	main(void)

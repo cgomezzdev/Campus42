@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/08 20:26:26 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:24:00 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,41 @@ BONUS
 El servidor confirma cada signal recibida mandando una singal al cliente.
 Soporta los caracteres Unicode.*/
 //#include "minitalk.h"
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-
-void ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
 		i++;
-	write(1,&s,i);
+	write(1, &s, i);
 }
 
 void	handler_sigint1(int sig)
 {
-//	static int i = 0;
+	static int	i = 0;
+	static char	c = '\0';
+
 	if (sig == 10)
-		write(1,"0\n",2);
+	{
+		c = c | (1 >> i);
+		write(1, "1\n", 2);
+	}
 	else if (sig == 12)
-		write(1,"1\n",2);
-	//ft_putstr("it works");
+		write(1, "0\n", 2);
+	i++;
+	if (i == 8)
+	{
+		write(1, &c, 1);
+		write(1, "\n", 1);
+		i = 0;
+		c = '\0';
+	}
 }
 
 int	main(void)
@@ -53,6 +64,7 @@ int	main(void)
 	// si recibo señal de sigusr1 ejecuta esta funcion.
 	signal(SIGUSR2, handler_sigint1);
 	signal(SIGUSR1, handler_sigint1);
+	// ft_putstr()
 	while (1)
 		pause();
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/09 22:24:00 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:42:19 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handler_sigint1(int sig)
 
 	if (sig == 10)
 	{
-		c = c | (1 >> i);
+		c = (c | (1 >> i));
 		write(1, "1\n", 2);
 	}
 	else if (sig == 12)

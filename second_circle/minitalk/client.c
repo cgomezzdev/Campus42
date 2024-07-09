@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/09 22:15:50 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:39:40 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ void	strtbits(int pid, int c)
 	{
 		if (c & (1 << i))
 		{
-			kill(pid, SIGUSR1);//Campus pid=10.
-			write(1,"1",1);
+			kill(pid, SIGUSR1);//Campus signal=10.
+			write(1,"1\n",2);
 			usleep(100);
 		}
 		else
 		{
-			kill(pid, SIGUSR2);//Campus pid=12.
-			write(1,"0",1);
+			kill(pid, SIGUSR2);//Campus signal=12.
+			write(1,"0\n",2);
 			usleep(100);
 		}
 		i--;
 	}
+	write(1,&c,1);
+	write(1,"\n",1);
 }
 
 int	main(int ac, char *av[])

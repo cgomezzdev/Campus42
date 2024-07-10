@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/10 00:42:19 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:07:06 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ void	ft_putstr(char *s)
 
 void	handler_sigint1(int sig)
 {
-	static int	i = 0;
+	static int	i = 7;
 	static char	c = '\0';
 
 	if (sig == 10)
 	{
-		c = (c | (1 >> i));
+		c = (c | (1 << i));
 		write(1, "1\n", 2);
 	}
 	else if (sig == 12)
 		write(1, "0\n", 2);
-	i++;
-	if (i == 8)
+	i--;
+	if (i == 0)
 	{
 		write(1, &c, 1);
 		write(1, "\n", 1);
-		i = 0;
+		i = 7;
 		c = '\0';
 	}
 }
@@ -64,7 +64,6 @@ int	main(void)
 	// si recibo señal de sigusr1 ejecuta esta funcion.
 	signal(SIGUSR2, handler_sigint1);
 	signal(SIGUSR1, handler_sigint1);
-	// ft_putstr()
 	while (1)
 		pause();
 	return (0);

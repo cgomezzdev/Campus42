@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/10 18:06:10 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:19:15 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,33 @@ Soporta los caracteres Unicode.*/
 #include <stdlib.h>
 #include <unistd.h>
 
-void	strtbits(int pid, int c)
+void	strtbits(int pid, char *s)
 {
-	int	i;
+	static int	i = 7;
+	static int	c = 0;
 
-	i = 7;
-	while (i >= 0)
+	while (*s)
 	{
-		if (c & (1 << i))
+		i = 7;
+		while (i > -1)
 		{
-			kill(pid, SIGUSR1);//Campus signal=10.
-			write(1,"1\n",2);
-			usleep(100);
+			if (*s & (1 << i))
+			{
+				kill(pid, SIGUSR1); // Campus signal=10.
+				write(1, "1\n", 2);
+				usleep(100);
+			}
+			else
+			{
+				kill(pid, SIGUSR2); // Campus signal=12.
+				write(1, "0\n", 2);
+				usleep(100);
+			}
+			i--;
 		}
-		else
-		{
-			kill(pid, SIGUSR2);//Campus signal=12.
-			write(1,"0\n",2);
-			usleep(100);
-		}
-		i--;
+		write(1, &s, 1);
+		s++;
 	}
-	write(1,&c,1);
-	write(1,"\n",1);
 }
 
 int	main(int ac, char *av[])
@@ -56,7 +60,7 @@ int	main(int ac, char *av[])
 	// char	*c;
 	pid = atoi(av[1]);
 	// c = av[2];
-	strtbits(pid, 'c');
+	strtbits(pid, "hola");
 	printf("%i\n", pid);
 	// kill(pid, SIGUSR1);
 	return (0);

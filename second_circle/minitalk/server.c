@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/13 17:44:54 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:14:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,55 @@ Soporta los caracteres Unicode.*/
 #include <stdlib.h>
 #include <unistd.h>
 
-void	ft_putstr(char *s)
+int	ft_strlen(char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s[i])
 		i++;
-	write(1, &s, i);
+	return (i);
+}
+
+void	ft_putstr(char *s, int len)
+{
+	write(1, &s, len);
+	// write(1, "\n", 1);
 }
 
 void	handler_sigint1(int sig)
 {
 	static int	i = 7;
 	static char	c = '\0';
+	static char	*str;
+	static int	l = 31;
+	static int	len = 0;
+	int j = 0;
 
-	if (sig == 10)
+	if (sig == SIGUSR1)
+	{
+		len = (len | (1 << l));
+	}
+	l--;
+	str = malloc((len + 1) * (sizeof(char)));
+	if (str == NULL)
+		return ;
+	if (sig == SIGUSR1)
 	{
 		c = (c | (1 << i));
-		write(1, "1\n", 2);
+		// write(1, "1\n", 2);
 	}
-	else if (sig == 12)
-		write(1, "0\n", 2);
+	// else if (sig == 12)
+	// write(1, "0\n", 2);
 	i--;
 	if (i == -1)
 	{
-		write(1, &c, 1);
+		// write(1, &c, 1);
+		str[j] = c;
+		j++;
+		// write(1, &str[0], 1);
+		if (str[j] == '\0')
+			ft_putstr(str, len);
 		write(1, "\n", 1);
 		i = 7;
 		c = '\0';
@@ -58,6 +81,7 @@ void	handler_sigint1(int sig)
 int	main(void)
 {
 	pid_t	pid;
+	char	*str;
 
 	pid = getpid();
 	printf("pid: %i\n", pid);

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/13 19:19:15 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:51:36 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,41 @@ Soporta los caracteres Unicode.*/
 #include <stdlib.h>
 #include <unistd.h>
 
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	inttbits(int pid, int len)
+{
+	static int	i = 31;
+
+	while (i > -1)
+	{
+		if (len & (1 << i))
+		{
+			kill(pid, SIGUSR1);
+			write(1, "1\n", 2);
+			usleep(100);
+		}
+		else
+		{
+			kill(pid, SIGUSR2);
+			write(1, "0\n", 2);
+			usleep(100);
+		}
+		i--;
+	}
+}
+
 void	strtbits(int pid, char *s)
 {
 	static int	i = 7;
-	static int	c = 0;
 
 	while (*s)
 	{
@@ -37,13 +68,13 @@ void	strtbits(int pid, char *s)
 			if (*s & (1 << i))
 			{
 				kill(pid, SIGUSR1); // Campus signal=10.
-				write(1, "1\n", 2);
+				//write(1, "1\n", 2);
 				usleep(100);
 			}
 			else
 			{
 				kill(pid, SIGUSR2); // Campus signal=12.
-				write(1, "0\n", 2);
+				//write(1, "0\n", 2);
 				usleep(100);
 			}
 			i--;
@@ -55,12 +86,12 @@ void	strtbits(int pid, char *s)
 
 int	main(int ac, char *av[])
 {
-	int	pid;
+	int		pid;
+	char	str[] = "hola";
 
-	// char	*c;
 	pid = atoi(av[1]);
-	// c = av[2];
-	strtbits(pid, "hola");
+	inttbits(pid, ft_strlen(str));
+	strtbits(pid, str);
 	printf("%i\n", pid);
 	// kill(pid, SIGUSR1);
 	return (0);

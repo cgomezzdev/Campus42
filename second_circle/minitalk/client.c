@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/21 18:51:36 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:06:46 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	inttbits(int pid, int len)
 		if (len & (1 << i))
 		{
 			kill(pid, SIGUSR1);
-			write(1, "1\n", 2);
+			// write(1, "1\n", 2);
 			usleep(100);
 		}
 		else
 		{
 			kill(pid, SIGUSR2);
-			write(1, "0\n", 2);
+			// write(1, "0\n", 2);
 			usleep(100);
 		}
 		i--;
@@ -68,31 +68,31 @@ void	strtbits(int pid, char *s)
 			if (*s & (1 << i))
 			{
 				kill(pid, SIGUSR1); // Campus signal=10.
-				//write(1, "1\n", 2);
+				// write(1, "1\n", 2);
 				usleep(100);
 			}
 			else
 			{
 				kill(pid, SIGUSR2); // Campus signal=12.
-				//write(1, "0\n", 2);
+				// write(1, "0\n", 2);
 				usleep(100);
 			}
 			i--;
 		}
-		write(1, &s, 1);
+		write(1, s, 1);
 		s++;
 	}
 }
 
-int	main(int ac, char *av[])
+int	main(int ac, char **av)
 {
 	int		pid;
-	char	str[] = "hola";
+	char	str[] = "horsey que minitalk deberia llamarse so long tioooooo";
 
 	pid = atoi(av[1]);
+	printf("%i\n", pid);
 	inttbits(pid, ft_strlen(str));
 	strtbits(pid, str);
-	printf("%i\n", pid);
 	// kill(pid, SIGUSR1);
 	return (0);
 }

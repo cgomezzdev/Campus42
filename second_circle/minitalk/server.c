@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/21 21:14:57 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:06:43 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ Soporta los caracteres Unicode.*/
 #include <stdlib.h>
 #include <unistd.h>
 
+char	*str;
+
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -35,53 +37,83 @@ int	ft_strlen(char *s)
 
 void	ft_putstr(char *s, int len)
 {
-	write(1, &s, len);
+	printf("putstr %s len %d\n", str, len);
+	write(1, s, len + 1);
+	write(1, "\n", 1);
 	// write(1, "\n", 1);
 }
+/*
+int	get_len(int sig)
+{
+}
+
+char	*get_str(int sig)
+{
+}
+
+if (bits < 32)
+	get_len;
+else
+	get_str;
+if (byte == '\0')
+{
+	bits == 0;
+	ft_putstr(string);
+	free(string);
+}
+	*/
 
 void	handler_sigint1(int sig)
 {
 	static int	i = 7;
 	static char	c = '\0';
-	static char	*str;
 	static int	l = 31;
 	static int	len = 0;
-	int j = 0;
+	static int	j = 0;
 
-	if (sig == SIGUSR1)
+	if (sig == SIGUSR1 && l > -1)
 	{
 		len = (len | (1 << l));
 	}
 	l--;
-	str = malloc((len + 1) * (sizeof(char)));
-	if (str == NULL)
-		return ;
-	if (sig == SIGUSR1)
+	if (l == -1)
 	{
-		c = (c | (1 << i));
-		// write(1, "1\n", 2);
+		str = malloc((len + 1) * (sizeof(char)));
+		if (str == NULL)
+			return ;
 	}
-	// else if (sig == 12)
-	// write(1, "0\n", 2);
-	i--;
-	if (i == -1)
+	if (l < -1)
 	{
-		// write(1, &c, 1);
-		str[j] = c;
-		j++;
-		// write(1, &str[0], 1);
-		if (str[j] == '\0')
-			ft_putstr(str, len);
-		write(1, "\n", 1);
-		i = 7;
-		c = '\0';
+		if (sig == SIGUSR1)
+		{
+			c = (c | (1 << i));
+			// write(1, "1\n", 2);
+		}
+		i--;
+		if (i == -1)
+		{
+			str[j] = c;
+			// write(1, &c, 1);
+			// write(1, &str[j], 1);
+			j++;
+			i = 7;
+			c = 0;
+		}
+	}
+	if (j == len && l < -1)
+	{
+		str[len] = '\0';
+		ft_putstr(str, len);
+		free(str);
+		j = 0;
+		len = 0;
+		l = 31;
 	}
 }
 
 int	main(void)
 {
 	pid_t	pid;
-	char	*str;
 
 	pid = getpid();
 	printf("pid: %i\n", pid);

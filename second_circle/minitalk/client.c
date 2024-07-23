@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/22 22:06:46 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:50:12 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,13 @@ void	inttbits(int pid, int len)
 		{
 			kill(pid, SIGUSR1);
 			// write(1, "1\n", 2);
-			usleep(100);
 		}
 		else
 		{
 			kill(pid, SIGUSR2);
 			// write(1, "0\n", 2);
-			usleep(100);
 		}
+		usleep(400);
 		i--;
 	}
 }
@@ -68,31 +67,35 @@ void	strtbits(int pid, char *s)
 			if (*s & (1 << i))
 			{
 				kill(pid, SIGUSR1); // Campus signal=10.
-				// write(1, "1\n", 2);
-				usleep(100);
+									// write(1, "1\n", 2);
 			}
 			else
 			{
 				kill(pid, SIGUSR2); // Campus signal=12.
-				// write(1, "0\n", 2);
-				usleep(100);
+									// write(1, "0\n", 2);
 			}
+			usleep(400);
 			i--;
 		}
-		write(1, s, 1);
+		// write(1, s, 1);
 		s++;
 	}
 }
 
 int	main(int ac, char **av)
 {
-	int		pid;
-	char	str[] = "horsey que minitalk deberia llamarse so long tioooooo";
+	pid_t	pid;
+	int		pids;
 
-	pid = atoi(av[1]);
-	printf("%i\n", pid);
-	inttbits(pid, ft_strlen(str));
-	strtbits(pid, str);
-	// kill(pid, SIGUSR1);
+	pid = getpid();
+	if (ac != 3)
+		return (0);
+	pids = atoi(av[1]);
+	printf("Pid client: %i\n", pid);
+	printf("Pid server: %i\n", pids);
+	inttbits(pids, ft_strlen(av[2]));
+	strtbits(pids, av[2]);
+	// while (1)
+	// pause();
 	return (0);
 }

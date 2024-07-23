@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/22 22:06:43 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:58:19 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-void	ft_putstr(char *s, int len)
+void	ft_putstr(int len)
 {
-	printf("putstr %s len %d\n", str, len);
-	write(1, s, len + 1);
+	//printf("putstr %s len %d\n", str, len);
+	write(1, str, len + 1);
 	write(1, "\n", 1);
-	// write(1, "\n", 1);
 }
 /*
 int	get_len(int sig)
@@ -93,7 +92,7 @@ void	handler_sigint1(int sig)
 		if (i == -1)
 		{
 			str[j] = c;
-			// write(1, &c, 1);
+			 //write(1, &c, 1);
 			// write(1, &str[j], 1);
 			j++;
 			i = 7;
@@ -103,7 +102,7 @@ void	handler_sigint1(int sig)
 	if (j == len && l < -1)
 	{
 		str[len] = '\0';
-		ft_putstr(str, len);
+		ft_putstr(len);
 		free(str);
 		j = 0;
 		len = 0;
@@ -121,7 +120,7 @@ int	main(void)
 	signal(SIGUSR2, handler_sigint1);
 	signal(SIGUSR1, handler_sigint1);
 	while (1)
-		pause();
+		;
 	return (0);
 }
 /*

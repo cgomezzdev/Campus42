@@ -6,7 +6,7 @@
 #    By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 20:13:13 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/07/06 19:33:20 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/07/23 20:38:33 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 SERVER = server
 CLIENT = client
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 #<------------->FILES<------------->
 

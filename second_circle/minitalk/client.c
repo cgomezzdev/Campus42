@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/23 21:50:12 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:34:22 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	inttbits(int pid, int len)
 			kill(pid, SIGUSR2);
 			// write(1, "0\n", 2);
 		}
-		usleep(400);
+		usleep(100);
 		i--;
 	}
 }
@@ -74,7 +74,7 @@ void	strtbits(int pid, char *s)
 				kill(pid, SIGUSR2); // Campus signal=12.
 									// write(1, "0\n", 2);
 			}
-			usleep(400);
+			usleep(150);
 			i--;
 		}
 		// write(1, s, 1);
@@ -84,14 +84,11 @@ void	strtbits(int pid, char *s)
 
 int	main(int ac, char **av)
 {
-	pid_t	pid;
 	int		pids;
 
-	pid = getpid();
 	if (ac != 3)
 		return (0);
 	pids = atoi(av[1]);
-	printf("Pid client: %i\n", pid);
 	printf("Pid server: %i\n", pids);
 	inttbits(pids, ft_strlen(av[2]));
 	strtbits(pids, av[2]);

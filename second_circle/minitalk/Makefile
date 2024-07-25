@@ -6,7 +6,7 @@
 #    By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 20:13:13 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/07/25 16:49:17 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/07/25 19:19:46 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,13 @@ all: make_libs $(SERVER) $(CLIENT)
 make_libs:
 	@make -C printf --no-print-directory
 
-$(SERVER): server.c p
-	cc server.c -o $@
+$(SERVER): server.c printf/libftprintf.a
+	cc server.c printf/libftprintf.a -o $@ 
 
-$(CLIENT): client.c
-	cc client.c -o $@
+$(CLIENT): client.c printf/libftprintf.a
+	cc client.c printf/libftprintf.a -o $@
 
-%.o:%.c Makefile printf/printf.a
+%.o:%.c Makefile printf/ft_printf.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 #$(NAME): $(OFILES)

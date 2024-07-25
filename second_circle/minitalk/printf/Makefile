@@ -3,53 +3,46 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+         #
+#    By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/07/03 20:13:13 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/07/25 16:49:17 by cgomez-z         ###   ########.fr        #
+#    Created: 2024/03/11 20:15:39 by cgomez-z          #+#    #+#              #
+#    Updated: 2024/03/28 21:33:07 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #<------------->CONFIG<------------->
 
-SERVER = server
-CLIENT = client
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+NAME = libftprintf.a
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
+AR = ar -rcs
 
 #<------------->FILES<------------->
 
-#CFILES = server.c client.c
-#OFILES = $(CFILES:.c=.o)
+HEADER = ft_printf.h
+C_FILES = ft_formats.c ft_print_c.c ft_print_d.c ft_print_i.c ft_print_p.c ft_print_s.c ft_print_u.c ft_print_x.c ft_printf.c
+O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->
 
-all: make_libs $(SERVER) $(CLIENT)
+all: $(NAME)
 
-make_libs:
-	@make -C printf --no-print-directory
-
-$(SERVER): server.c p
-	cc server.c -o $@
-
-$(CLIENT): client.c
-	cc client.c -o $@
-
-%.o:%.c Makefile printf/printf.a
+%.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
 
-#$(NAME): $(OFILES)
-#	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
+$(NAME): $(O_FILES)
+	$(AR) $(NAME) $(O_FILES)
 
 #<------------->PHONY<------------->
 
 clean:
-	$(RM) $(SERVER) $(CLIENT) #$(OFILES)
-	@make clean -C ./printf
+	$(RM) $(O_FILES)
 
 fclean: clean
-#	$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all cl fclean re
+.PHONY: all clean fclean re
+
+#<------------->8<------------->

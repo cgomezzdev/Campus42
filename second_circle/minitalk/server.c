@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/25 20:49:09 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:21:50 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,19 @@
 
 char	*g_str;
 
-void	ft_putstr(int len)
-{
-	write(1, str, len + 1);
-	write(1, "\n", 1);
-}
-
 char	*get_str(int len)
 {
-	char	*str;
-
-	str = malloc((len + 1) * (sizeof(char)));
-	if (str == NULL)
+	g_str = malloc((len + 1) * (sizeof(char)));
+	if (g_str == NULL)
 		exit(1);
-	return (str);
+	return (g_str);
 }
 
 void	final_put(int *len, int *j, int *l)
 {
-	str[*len] = '\0';
-	ft_putstr(*len);
-	free(str);
+	g_str[*len] = '\0';
+	ft_printf("%s\n", g_str);
+	free(g_str);
 	*j = 0;
 	*len = 0;
 	*l = 31;
@@ -53,7 +45,7 @@ void	handler_sigint1(int sig)
 		len = (len | (1 << l));
 	l--;
 	if (l == -1)
-		str = get_str(len);
+		g_str = get_str(len);
 	if (l < -1)
 	{
 		if (sig == SIGUSR1)
@@ -61,7 +53,7 @@ void	handler_sigint1(int sig)
 		i--;
 		if (i == -1)
 		{
-			str[j++] = c;
+			g_str[j++] = c;
 			i = 7;
 			c = 0;
 		}
@@ -79,6 +71,6 @@ int	main(void)
 	signal(SIGUSR2, handler_sigint1);
 	signal(SIGUSR1, handler_sigint1);
 	while (1)
-		;
+		pause();
 	return (0);
 }

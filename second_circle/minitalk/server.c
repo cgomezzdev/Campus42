@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/23 21:58:19 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/25 03:00:55 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ void	ft_putstr(int len)
 /*
 int	get_len(int sig)
 {
+	static int l = 31;
+	static int len = 0;
+
+	while (l > -1)
+	if (sig == SIGUSR1)
+	{
+	len = (len | (1 << i));
+	}
+	l--;
+	return(len);
 }
 
 char	*get_str(int sig)

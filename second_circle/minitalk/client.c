@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/24 21:34:22 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:25:31 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	inttbits(int pid, int len)
 			kill(pid, SIGUSR2);
 			// write(1, "0\n", 2);
 		}
-		usleep(100);
+		usleep(150);
 		i--;
 	}
 }

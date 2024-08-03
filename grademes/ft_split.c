@@ -1,10 +1,13 @@
 
+#include <stdio.h>
+#include <stdlib.h>
+
 //"hola   que tal" -> 3
 //"hola   que tal " -> 3
 //" hola   que tal" -> 3
 //"       " -> 0
 //"" -> 0
-int contar_palabras(const char *str, char c)
+int contar_palabras(const char *s, char c)
 {
 	int count;
 	int i;
@@ -39,7 +42,7 @@ char *ft_substr(const char *str, int start, int len)
 	char *palabra;
 	int i;
 
-	palabra = malloc(sizeof(char) * (len + 1))
+	palabra = malloc(sizeof(char) * (len + 1));
 	//estoy en examen me la pela protegerlo
 
 	i = 0;
@@ -56,23 +59,23 @@ char *ft_substr(const char *str, int start, int len)
 }  
 
 
-char **ft_split(const char *str, char c)
+char **ft_split(const char *s, char c)
 {
 	//contar palabras	
 	char **matrix;
+	int palabras_pegadas;
 	int i;
 	int start;
-	int words;
 
 	palabras_pegadas = 0;
 	i = 0;
 	//reservamos la memoria con malloc de contador de palabras.
 	// los dos fallos tipicos, no acoradrse que es (char *) i olvidarse de poner (contar palabras + 1) entre parentesis
-	matrix = malloc((contrar_palabtas(str, c) + 1) * (sizeof(char *)));
+	matrix = malloc((contar_palabras(s, c) + 1) * (sizeof(char *)));
 	//estoy en examen me la pela protegerlo
 
 	//cortar i pegar palabras
-	while(str[i])
+	while(s[i])
 	{
 		// Si encuentro inicio de palabra, me guardo esa posicion
 		if(i > 0 && s[i] != c && s[i - 1] == c)
@@ -82,7 +85,7 @@ char **ft_split(const char *str, char c)
 		// Si encuenro final de palabra, corto i pego
 		if(s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 		{
-			matrix[palabras_pegadas] = ft_substr(str, start, i - start + 1); // el len es end - start + 1
+			matrix[palabras_pegadas] = ft_substr(s, start, i - start + 1); // el len es end - start + 1
 			//estoy en examen me la pela protegerlo
 			palabras_pegadas++;
 		}

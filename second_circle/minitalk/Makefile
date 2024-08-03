@@ -6,7 +6,7 @@
 #    By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 20:13:13 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/07/25 19:19:46 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/07/28 20:42:16 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,41 +14,41 @@
 
 SERVER = server
 CLIENT = client
+PRINTF_A = printf/libftprintf.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
 
 #<------------->FILES<------------->
 
-#CFILES = server.c client.c
-#OFILES = $(CFILES:.c=.o)
+CFILES = client.c
+OCFILES = $(CFILES:.c=.o)
+SFILES = server.c
+OSFILES = $(SFILES:.c=.o)
 
 #<------------->RULES<------------->
+
+%.o:%.c 	Makefile $(SERVER) %(CLIENT)
+			$(CC) $(CFLAGS) -c $< -o $@
 
 all: make_libs $(SERVER) $(CLIENT)
 
 make_libs:
 	@make -C printf --no-print-directory
 
-$(SERVER): server.c printf/libftprintf.a
-	cc server.c printf/libftprintf.a -o $@ 
+$(SERVER): $(OSFILES) $(PRINTF_A)
+	$(CC) $(OSFILES) $(PRINTF_A) -o $@ 
 
-$(CLIENT): client.c printf/libftprintf.a
-	cc client.c printf/libftprintf.a -o $@
-
-%.o:%.c Makefile printf/ft_printf.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-#$(NAME): $(OFILES)
-#	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
+$(CLIENT): $(OCFILES) $(PRINTF_A)
+	$(CC) $(OCFILES) $(PRINTF_A) -o $@
 
 #<------------->PHONY<------------->
 
 clean:
-	$(RM) $(SERVER) $(CLIENT) #$(OFILES)
+	$(RM) $(SERVER) $(CLIENT) $(OCFILES) $(OSFILES)
 	@make clean -C ./printf
 
 fclean: clean
-#	$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 23:38:24 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/25 21:21:50 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:03:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,23 @@ void	handler_sigint1(int sig)
 	static int	len = 0;
 	static int	j = 0;
 
-	if (sig == SIGUSR1 && l > -1)
-		len = (len | (1 << l));
-	l--;
-	if (l == -1)
-		g_str = get_str(len);
-	if (l < -1)
+	if (l > -1)
 	{
 		if (sig == SIGUSR1)
-			c = (c | (1 << i));
-		i--;
-		if (i == -1)
-		{
-			g_str[j++] = c;
-			i = 7;
-			c = 0;
-		}
+			len = (len | (1 << l));
+		if (--l == -1)
+			g_str = get_str(len);
+		return ;
 	}
-	if (j == len && l < -1)
+	if (sig == SIGUSR1)
+		c = (c | (1 << i));
+	if (--i == -1)
+	{
+		g_str[j++] = c;
+		i = 7;
+		c = 0;
+	}
+	if (j == len)
 		final_put(&len, &j, &l);
 }
 
@@ -71,6 +70,6 @@ int	main(void)
 	signal(SIGUSR2, handler_sigint1);
 	signal(SIGUSR1, handler_sigint1);
 	while (1)
-		pause();
+		;
 	return (0);
 }

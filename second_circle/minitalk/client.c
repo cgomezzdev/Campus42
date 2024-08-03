@@ -6,14 +6,40 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:13:43 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/07/25 20:45:37 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:12:13 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf/ft_printf.h"
 #include <signal.h>
 
-int	ft_strlen(char *s)
+static int	ft_atoi(char *s)
+{
+	int	n;
+	int	i;
+	int	sign;
+
+	i = 0;
+	n = 0;
+	sign = 1;
+	while ((s[i] >= 9 && s[i] <= 13) || s[i] == ' ')
+		i++;
+	if (s[i] == '+' || s[i] == '-')
+	{
+		if (s[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while ((s[i] >= '0' && s[i] <= '9') && s[i])
+	{
+		n = (n * 10) + s[i] - '0';
+		i++;
+	}
+	n *= sign;
+	return (n);
+}
+
+static int	ft_strlen(char *s)
 {
 	int	i;
 
@@ -23,7 +49,7 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-void	inttbits(int pid, int len)
+static void	inttbits(int pid, int len)
 {
 	static int	i = 31;
 
@@ -37,12 +63,12 @@ void	inttbits(int pid, int len)
 		{
 			kill(pid, SIGUSR2);
 		}
-		usleep(150);
+		usleep(300);
 		i--;
 	}
 }
 
-void	strtbits(int pid, char *s)
+static void	strtbits(int pid, char *s)
 {
 	static int	i = 7;
 
@@ -59,7 +85,7 @@ void	strtbits(int pid, char *s)
 			{
 				kill(pid, SIGUSR2);
 			}
-			usleep(150);
+			usleep(300);
 			i--;
 		}
 		s++;
@@ -72,7 +98,7 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 		return (0);
-	pids = atoi(av[1]);
+	pids = ft_atoi(av[1]);
 	ft_printf("Pid server: %i\n", pids);
 	inttbits(pids, ft_strlen(av[2]));
 	strtbits(pids, av[2]);

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/05 21:28:31 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:22:31 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,15 @@ static t_list	*make_stack_a(char **av)
 	{
 		num = ft_atoi(av[i], 0);
 		printf("Num nodo: %i\n", num);
+		if (check_dupe(stack_a, num))
+		{
+			printf("error dupe\n");
+			free(stack_a);
+			exit(1);
+		}
 		tmp = ft_newlst(num);
 		ft_lstadd_back(&stack_a, tmp);
 		i++;
-	}
-	if (ft_checkrepeat(stack_a) == -1)
-	{
-		printf("ERROR\n");
-		// exit(1); crear una funcion para eliminar la lista.
 	}
 	return (stack_a);
 }

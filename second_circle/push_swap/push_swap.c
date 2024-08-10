@@ -63,6 +63,16 @@ static int	arg_checker(char **av, int flagr)
 /*funcion addback para agregar el nodo a la lista */
 /*funcion para recorer la lista en busca del mismo numero para ver si se repite*/
 
+void free_lst(t_list *stack)
+{
+	while(stack != NULL)
+	{
+		free(stack->content);
+		stack = stack->next;
+	}
+	free(stack);
+}
+
 static t_list	*make_stack_a(char **av)
 {
 	t_list	*stack_a;
@@ -79,7 +89,7 @@ static t_list	*make_stack_a(char **av)
 		if (check_dupe(stack_a, num))
 		{
 			printf("error dupe\n");
-			free(stack_a);
+			free_lst(stack_a);
 			exit(1);
 		}
 		tmp = ft_newlst(num);

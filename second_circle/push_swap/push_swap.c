@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/06 22:22:31 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:21:33 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,27 @@ static int	arg_checker(char **av, int flagr)
 
 void free_lst(t_list *stack)
 {
+	t_list *node;
+
 	while(stack != NULL)
 	{
-		free(stack->content);
+		//write(1,"a\n", 2);
+		node = stack;
+		stack = stack->next;
+		free(node);
+	}
+}
+void print_stack(t_list *stack)
+{
+	int i; 
+
+	i = 0;
+	while(stack != NULL)
+	{
+		printf("[%d] - %d\n", i++, stack->content);
 		stack = stack->next;
 	}
-	free(stack);
 }
-
 static t_list	*make_stack_a(char **av)
 {
 	t_list	*stack_a;
@@ -84,6 +97,7 @@ static t_list	*make_stack_a(char **av)
 	i = 1;
 	while (av[i])
 	{
+		print_stack(stack_a);
 		num = ft_atoi(av[i], 0);
 		printf("Num nodo: %i\n", num);
 		if (check_dupe(stack_a, num))

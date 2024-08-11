@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:53:25 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/10 18:56:45 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:22:50 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ void    ft_lstadd_back(t_list **lst, t_list *new)
 {
         t_list  *last;
 
-        if (!(*lst))
+        if (*lst == NULL)
         {
                 *lst = new;
                 return ;
         }
         last = ft_last_lst(*lst);
+		printf("last:%d\n",last->content);
         last->next = new;
 }

@@ -27,7 +27,7 @@ static int	checker_digits(char *str)
 		if (ft_isdigit(str[i]) == 1)
 		{
 			r++;
-			write(1, "r", 1);
+			//write(1, "r", 1);
 		}
 		else
 			return (-1);
@@ -46,7 +46,7 @@ static int	arg_checker(char **av, int flagr)
 	i = 1;
 	while (av[i] != NULL)
 	{
-		write(1, "a", 1);
+		//write(1, "a", 1);
 		// printf("Numeros: %s\n", av[i]);
 		if (checker_digits(av[i]) != -1)
 			ft_atoi(av[i], &flagr);
@@ -74,7 +74,22 @@ void free_lst(t_list *stack)
 		stack = stack->next;
 		free(node);
 	}
+	exit(1);
 }
+
+int lst_sorted(t_list *stack_a)
+{
+	while(stack_a->next !=  NULL)
+	{
+		//printf("[%d]\n", stack_a->content);
+		if (stack_a->content > stack_a->next->content)
+			return(1);
+		stack_a = stack_a->next;
+	}
+	return(0);
+}
+
+/*
 void print_stack(t_list *stack)
 {
 	int i; 
@@ -85,7 +100,8 @@ void print_stack(t_list *stack)
 		printf("[%d] - %d\n", i++, stack->content);
 		stack = stack->next;
 	}
-}
+}*/
+
 static t_list	*make_stack_a(char **av)
 {
 	t_list	*stack_a;
@@ -97,14 +113,13 @@ static t_list	*make_stack_a(char **av)
 	i = 1;
 	while (av[i])
 	{
-		print_stack(stack_a);
+		//print_stack(stack_a);
 		num = ft_atoi(av[i], 0);
 		printf("Num nodo: %i\n", num);
 		if (check_dupe(stack_a, num))
 		{
 			printf("error dupe\n");
 			free_lst(stack_a);
-			exit(1);
 		}
 		tmp = ft_newlst(num);
 		ft_lstadd_back(&stack_a, tmp);
@@ -127,6 +142,12 @@ int	main(int ac, char *av[])
 	}
 	if (arg_checker(av, flagr) == 1)
 		a = make_stack_a(av);
+	if(lst_sorted(a) == 0)
+	{
+		printf("stack already sorted!\n");
+		free_lst(a);
+	}
+	if(a)
 	ft_printlst(&a);
 	write(1, "\n", 1);
 	return (0);

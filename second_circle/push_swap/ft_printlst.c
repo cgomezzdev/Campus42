@@ -14,11 +14,14 @@
 
 void	ft_printlst(t_list **lst)
 {
+	t_list *tmp;
+
+	tmp = *lst;
 	printf("List: ");
-	while (*lst != NULL)
+	while (tmp != NULL)
 	{
-		printf("%i ", (*lst)->content);
-		*lst = (*lst)->next;
+		printf("%i[%i] ", tmp->content,tmp->index);
+		tmp = (tmp)->next;
 	}
 	printf("done\n");
 }

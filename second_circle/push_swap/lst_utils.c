@@ -20,8 +20,22 @@ t_list  *ft_newlst(int num)
         if (lst == NULL)
                 return (NULL);
         lst->content = num;
+	lst->index = -1;
         lst->next = NULL;
         return (lst);
+}
+
+int lst_size(t_list *lst)
+{
+	int size;
+
+	size = 0;
+	while(lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return(size);
 }
 
 int     ft_checkrepeat(t_list *lst)

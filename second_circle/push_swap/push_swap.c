@@ -79,12 +79,15 @@ void free_lst(t_list *stack)
 
 int lst_sorted(t_list *stack_a)
 {
-	while(stack_a->next !=  NULL)
+	t_list *tmp;
+
+	tmp = stack_a;
+	while(tmp->next !=  NULL)
 	{
 		//printf("[%d]\n", stack_a->content);
-		if (stack_a->content > stack_a->next->content)
+		if (tmp->content > tmp->next->content)
 			return(1);
-		stack_a = stack_a->next;
+		tmp = tmp->next;
 	}
 	return(0);
 }
@@ -105,9 +108,9 @@ void print_stack(t_list *stack)
 static t_list	*make_stack_a(char **av)
 {
 	t_list	*stack_a;
+	t_list	*tmp;
 	int		num;
 	int		i;
-	t_list	*tmp;
 
 	stack_a = NULL;
 	i = 1;
@@ -125,15 +128,47 @@ static t_list	*make_stack_a(char **av)
 		ft_lstadd_back(&stack_a, tmp);
 		i++;
 	}
+	//ft_printlst(&stack_a);
 	return (stack_a);
+}
+/*
+void  *get_index(t_list *stack_a)
+{
+	t_list *tmp;
+	int i;
+
+	tmp = stack_a;
+	i = 0;
+	while(tmp)
+	{
+		if(find_min(stack_a))
+		{
+			tmp->index = i++;
+		}
+		tmp = tmp->next;
+	}
+	return();
+}*/
+
+void check_sort(t_list **stack_a)
+{
+	int size;
+
+	size = lst_size(*stack_a);
+	if(size == 2)
+		ft_sort2(stack_a);
+	else if(size == 3)
+		ft_sort3(stack_a);
 }
 
 int	main(int ac, char *av[])
 {
 	int		flagr;
 	t_list	*a;
+	//t_list	*b;
 
 	a = NULL;
+	//b = NULL;
 	flagr = 0;
 	if (ac == 2)
 	{
@@ -147,7 +182,9 @@ int	main(int ac, char *av[])
 		printf("stack already sorted!\n");
 		free_lst(a);
 	}
-	if(a)
+	ft_printlst(&a);
+	//get_index(&a);
+	check_sort(&a);
 	ft_printlst(&a);
 	write(1, "\n", 1);
 	return (0);

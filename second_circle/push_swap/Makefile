@@ -19,7 +19,8 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 #<------------->FILES<------------->
 
 HEADER = push_swap.h
-C_FILES = push_swap.c ft_atoi.c ft_isdigit.c ft_check_dupe.c lst_utils.c ft_printlst.c
+C_FILES = push_swap.c ft_atoi.c ft_isdigit.c ft_check_dupe.c lst_utils.c ft_printlst.c \
+	  sort_short.c swap.c rotate.c
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->

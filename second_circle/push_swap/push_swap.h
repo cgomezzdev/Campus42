@@ -42,6 +42,7 @@ void swap(t_list **stack);
 void rotate(t_list **stack);
 void sa(t_list **stack_a);
 void ra(t_list **stack_a);
+void rra(t_list **stack_a);
 void ft_sort2(t_list **stack_a);
 void ft_sort3(t_list **stack_a);
 void ft_sort4(t_list **stack_a);

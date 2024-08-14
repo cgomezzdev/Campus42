@@ -150,7 +150,7 @@ void  *get_index(t_list *stack_a)
 	return();
 }*/
 
-void check_sort(t_list **stack_a)
+void check_sort(t_list **stack_a, t_list **stack_b)
 {
 	int size;
 
@@ -159,16 +159,22 @@ void check_sort(t_list **stack_a)
 		ft_sort2(stack_a);
 	else if(size == 3)
 		ft_sort3(stack_a);
+	else if(size == 4)
+		ft_sort4(stack_a,stack_b);
+	else if(size == 5)
+		ft_sort5(stack_a,stack_b);
+	else if(size > 5)
+		ft_sort3(stack_a,stack_b);
 }
 
 int	main(int ac, char *av[])
 {
 	int		flagr;
 	t_list	*a;
-	//t_list	*b;
+	t_list	*b;
 
 	a = NULL;
-	//b = NULL;
+	b = NULL;
 	flagr = 0;
 	if (ac == 2)
 	{
@@ -184,7 +190,7 @@ int	main(int ac, char *av[])
 	}
 	ft_printlst(&a);
 	//get_index(&a);
-	check_sort(&a);
+	check_sort(&a,&b);
 	ft_printlst(&a);
 	write(1, "\n", 1);
 	return (0);

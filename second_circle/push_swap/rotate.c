@@ -19,3 +19,10 @@ void ra(t_list **stack_a)
 	rotate(stack_a);
 	write(1,"ra\n",3);
 }
+
+void rra(t_list **stack_a)
+{
+	rotate(stack_a);
+	rotate(stack_a);
+	write(1,"rra\n",4);
+}

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/11 20:21:33 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:44:26 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void check_sort(t_list **stack_a, t_list **stack_b)
 	else if(size == 5)
 		ft_sort5(stack_a,stack_b);
 	else if(size > 5)
-		ft_sort3(stack_a,stack_b);
+		ft_sort5(stack_a,stack_b);
 }
 
 int	main(int ac, char *av[])

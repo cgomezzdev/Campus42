@@ -6,7 +6,7 @@
 #    By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 18:28:10 by cgomez-z          #+#    #+#              #
-#    Updated: 2024/08/11 19:14:13 by cgomez-z         ###   ########.fr        #
+#    Updated: 2024/08/15 22:48:47 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 HEADER = push_swap.h
 C_FILES = push_swap.c ft_atoi.c ft_isdigit.c ft_check_dupe.c lst_utils.c ft_printlst.c \
-	  sort_short.c swap.c rotate.c
+	  sort_short.c swap.c rotate.c push.c
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->

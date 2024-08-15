@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:12:42 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/15 16:07:58 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:54:04 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	ft_sort3(t_list **stack_a)
 void	ft_sort4(t_list **stack_a, t_list **stack_b)
 {
 
-	find_min(stack_a);
+	//find_min(stack_a);
 	if (lst_size(*stack_a) == 4)
 	{
-		if ((*stack_a)->index == 0)
+		if (lst_sorted(*stack_a) == 1)
 		{
 			pb(stack_a, stack_b);
 			ft_sort3(stack_a);

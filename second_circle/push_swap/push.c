@@ -6,11 +6,11 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:36:41 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/15 22:22:02 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:46:45 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.c"
+#include "push_swap.h"
 
 void	find_min(t_list **stack_a)
 {

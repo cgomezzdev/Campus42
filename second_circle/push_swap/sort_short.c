@@ -71,15 +71,24 @@ void	ft_sort3(t_list **stack_a)
 
 void	ft_sort4(t_list **stack_a, t_list **stack_b)
 {
+	t_list *tmp;
 
-	//find_min(stack_a);
+	tmp = *stack_a;
+	find_min(&tmp);
+	//printf("size:%d\n",lst_size(*stack_a));
 	if (lst_size(*stack_a) == 4)
 	{
 		if (lst_sorted(*stack_a) == 1)
 		{
+			while((*stack_a)->index != 0)
+			{
+				ft_printlst(stack_a);
+				ra(stack_a);
+				(*stack_a) = (*stack_a)->next;
+			}
 			pb(stack_a, stack_b);
 			ft_sort3(stack_a);
-			pa(stack_a, stack_b);
+			//pa(stack_a, stack_b);
 		}
 	}
 	else

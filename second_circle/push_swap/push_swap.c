@@ -189,9 +189,11 @@ int	main(int ac, char *av[])
 		free_lst(a);
 	}
 	ft_printlst(&a);
+	ft_printlst(&b);
 	//get_index(&a);
 	check_sort(&a,&b);
 	ft_printlst(&a);
+	ft_printlst(&b);
 	write(1, "\n", 1);
 	return (0);
 }

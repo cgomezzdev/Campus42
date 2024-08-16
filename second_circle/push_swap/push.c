@@ -17,20 +17,22 @@ void	find_min(t_list **stack_a)
 	t_list	*tmp;
 	int		ref;
 
-	tmp = *stack_a;
+	tmp = (*stack_a);
 	ref = tmp->content;
+	ft_printlst(&tmp);
 	while (tmp)
 	{
 		if (ref > tmp->content)
 			ref = tmp->content;
 		tmp = tmp->next;
 	}
-	while (stack_a)
+	while ((*stack_a))
 	{
 		if ((*stack_a)->content == ref)
-			(*stack_a)->index++;
+			(*stack_a)->index += 1;
 		(*stack_a) = (*stack_a)->next;
 	}
+	ft_printlst(stack_a);
 }
 
 void	push(t_list **stack_1, t_list **stack_2)
@@ -41,8 +43,8 @@ void	push(t_list **stack_1, t_list **stack_2)
 	{
 		tmp = *stack_1;
 		(*stack_1) = (*stack_1)->next;
+		tmp->next = (*stack_2);
 		(*stack_2) = tmp;
-		(*stack_2)->next = NULL;
 	}
 }
 

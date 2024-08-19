@@ -39,6 +39,7 @@ int					lst_sorted(t_list *stack_a);
 /*moves*/
 
 void				find_min(t_list **stack_a);
+void putmin_top(t_list **stack_a);
 void				swap(t_list **stack);
 void				rotate(t_list **stack);
 void				push(t_list **stack_a, t_list **stack_b);

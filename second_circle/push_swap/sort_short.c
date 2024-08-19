@@ -20,7 +20,7 @@ void	ft_sort2(t_list **stack_a)
 		printf("error sort2");
 }
 
-int	cases_variants(t_list **stack_a)
+int	sort3_variants(t_list **stack_a)
 {
 	t_list	*middle;
 	t_list	*last;
@@ -48,21 +48,21 @@ void	ft_sort3(t_list **stack_a)
 {
 	if (lst_size(*stack_a) == 3 && lst_sorted(*stack_a) == 1)
 	{
-		if (cases_variants(stack_a) == 1)
+		if (sort3_variants(stack_a) == 1)
 			sa(stack_a);
-		if (cases_variants(stack_a) == 2)
+		if (sort3_variants(stack_a) == 2)
 			rra(stack_a);
-		if (cases_variants(stack_a) == 3)
+		if (sort3_variants(stack_a) == 3)
 		{
 			sa(stack_a);
 			ra(stack_a);
 		}
-		if (cases_variants(stack_a) == 4)
+		if (sort3_variants(stack_a) == 4)
 			ra(stack_a);
-		if (cases_variants(stack_a) == 5)
+		if (sort3_variants(stack_a) == 5)
 		{
 			sa(stack_a);
-			rra(stack_a);
+			rra(stack_a);//need check!
 		}
 	}
 	else
@@ -71,24 +71,16 @@ void	ft_sort3(t_list **stack_a)
 
 void	ft_sort4(t_list **stack_a, t_list **stack_b)
 {
-	t_list *tmp;
-
-	tmp = *stack_a;
-	find_min(&tmp);
 	//printf("size:%d\n",lst_size(*stack_a));
 	if (lst_size(*stack_a) == 4)
 	{
 		if (lst_sorted(*stack_a) == 1)
 		{
-			while((*stack_a)->index != 0)
-			{
-				ft_printlst(stack_a);
-				ra(stack_a);
-				(*stack_a) = (*stack_a)->next;
-			}
+			putmin_top(stack_a);
+			//ft_printlst(stack_a);
 			pb(stack_a, stack_b);
 			ft_sort3(stack_a);
-			//pa(stack_a, stack_b);
+			pa(stack_a, stack_b);
 		}
 	}
 	else
@@ -98,7 +90,12 @@ void	ft_sort4(t_list **stack_a, t_list **stack_b)
 void	ft_sort5(t_list **stack_a, t_list **stack_b)
 {
 	if (lst_size(*stack_a) == 5)
-		sa(stack_b);
+	{
+		putmin_top(stack_a);
+		pb(stack_a,stack_b);
+		ft_sort4(stack_a,stack_b);
+		pa(stack_a,stack_b);
+	}
 	else
 		printf("error sort5\n");
 }

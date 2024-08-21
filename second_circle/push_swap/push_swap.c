@@ -164,7 +164,7 @@ void check_sort(t_list **stack_a, t_list **stack_b)
 	else if(size == 5)
 		ft_sort5(stack_a,stack_b);
 	else if(size > 5)
-		ft_sort5(stack_a,stack_b);
+		radix_sort(stack_a,stack_b);
 }
 
 int	main(int ac, char *av[])

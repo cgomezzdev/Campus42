@@ -52,5 +52,6 @@ void				ft_sort2(t_list **stack_a);
 void				ft_sort3(t_list **stack_a);
 void				ft_sort4(t_list **stack_a, t_list **stack_b);
 void				ft_sort5(t_list **stack_a, t_list **stack_b);
+void radix_sort(t_list **stack_a, t_list **stack_b);
 
 #endif

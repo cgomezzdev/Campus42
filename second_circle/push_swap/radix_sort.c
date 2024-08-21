@@ -13,7 +13,7 @@ t_list *get_min_num(t_list **stack_a)
 	min_finded = 0;
 	while(tmp)
 	{
-		if(tmp->index == -1 && (min_finded == 0 || tmp->content < min->content))
+		if(tmp->index == -1 && (!min_finded || tmp->content < min->content))
 		{
 			min = tmp;
 			min_finded = 1;
@@ -63,6 +63,9 @@ int max_i_bits(t_list **stack_a)
 	return(bits);
 }
 
+/*En esta funcion usamos el algorimto the Radix sort
+ ordena los numeros procesandos sus bits en este caso en los bits de los indices*/
+
 void radix_sort(t_list **stack_a, t_list **stack_b)
 {
 	printf("a");
@@ -73,8 +76,8 @@ void radix_sort(t_list **stack_a, t_list **stack_b)
 	int j;
 
 	tmp = *stack_a;
-	highest_i = max_i_bits(stack_a);
-	size = lst_size(*stack_a);
+	highest_i = max_i_bits(stack_a);//numero max de bits
+	size = lst_size(tmp);//tamaño de la lista
 	printf("size: %d",size);
 	i = 0;
 	while(i < highest_i)

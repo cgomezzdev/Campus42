@@ -57,7 +57,9 @@ void check_sort(t_list **stack_a, t_list **stack_b)
 	else if(size == 5)
 		ft_sort5(stack_a,stack_b);
 	else if(size > 5)
+	{	get_index_num(stack_a);
 		radix_sort(stack_a,stack_b);
+	}
 }
 
 int	main(int ac, char *av[])
@@ -69,7 +71,7 @@ int	main(int ac, char *av[])
 	a = NULL;
 	b = NULL;
 	flagr = 0;
-	if (ac == 2)
+	if (ac <= 2)
 	{
 		write(1, "\n", 1);
 		return (0);
@@ -83,7 +85,6 @@ int	main(int ac, char *av[])
 	}
 	ft_printlst(&a);
 	ft_printlst(&b);
-	//get_index(&a);
 	check_sort(&a,&b);
 	ft_printlst(&a);
 	ft_printlst(&b);

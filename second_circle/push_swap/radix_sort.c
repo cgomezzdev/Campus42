@@ -59,7 +59,8 @@ int max_i_bits(t_list **stack_a)
 			max = tmp->index;
 		tmp = tmp->next;
 	}
-	while((max >> bits) !=0)
+	printf("bits -> %d\n", max );
+	while((max >> bits) != 0)
 	{
 		bits++;
 	}

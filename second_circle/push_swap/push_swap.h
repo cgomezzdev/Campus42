@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:47 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/15 16:05:29 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:21:28 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int					lst_size(t_list *lst);
 int					lst_sorted(t_list *stack_a);
 
 /*chekcs*/
-int				checker_digits(char *str);
-int				arg_checker(char **av, int flagr);
+int					checker_digits(char *str);
+int					arg_checker(char **av, int flagr);
 
 /*moves*/
 
@@ -57,6 +57,6 @@ void				ft_sort3(t_list **stack_a);
 void				ft_sort4(t_list **stack_a, t_list **stack_b);
 void				ft_sort5(t_list **stack_a, t_list **stack_b);
 void				radix_sort(t_list **stack_a, t_list **stack_b);
-void	get_index_num(t_list **);
+void				get_index_num(t_list **);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/15 22:44:26 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:20:11 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_list	*make_stack_a(char **av)
 	i = 1;
 	while (av[i])
 	{
-		//print_stack(stack_a);
+		// print_stack(stack_a);
 		num = ft_atoi(av[i], 0);
 		printf("Num nodo: %i\n", num);
 		if (check_dupe(stack_a, num))
@@ -39,26 +39,27 @@ static t_list	*make_stack_a(char **av)
 		ft_lstadd_back(&stack_a, tmp);
 		i++;
 	}
-	//ft_printlst(&stack_a);
+	// ft_printlst(&stack_a);
 	return (stack_a);
 }
 
-void check_sort(t_list **stack_a, t_list **stack_b)
+void	check_sort(t_list **stack_a, t_list **stack_b)
 {
-	int size;
+	int	size;
 
 	size = lst_size(*stack_a);
-	if(size == 2)
+	if (size == 2)
 		ft_sort2(stack_a);
-	else if(size == 3)
+	else if (size == 3)
 		ft_sort3(stack_a);
-	else if(size == 4)
-		ft_sort4(stack_a,stack_b);
-	else if(size == 5)
-		ft_sort5(stack_a,stack_b);
-	else if(size > 5)
-	{	get_index_num(stack_a);
-		radix_sort(stack_a,stack_b);
+	else if (size == 4)
+		ft_sort4(stack_a, stack_b);
+	else if (size == 5)
+		ft_sort5(stack_a, stack_b);
+	else if (size > 5)
+	{
+		get_index_num(stack_a);
+		radix_sort(stack_a, stack_b);
 	}
 }
 
@@ -78,14 +79,14 @@ int	main(int ac, char *av[])
 	}
 	if (arg_checker(av, flagr) == 1)
 		a = make_stack_a(av);
-	if(lst_sorted(a) == 0)
+	if (lst_sorted(a) == 0)
 	{
 		printf("stack already sorted!\n");
 		free_lst(a);
 	}
 	ft_printlst(&a);
 	ft_printlst(&b);
-	check_sort(&a,&b);
+	check_sort(&a, &b);
 	ft_printlst(&a);
 	ft_printlst(&b);
 	write(1, "\n", 1);

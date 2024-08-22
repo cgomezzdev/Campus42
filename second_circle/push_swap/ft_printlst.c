@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:04:51 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/06/01 19:18:15 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:20:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	ft_printlst(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = *lst;
 	printf("List: ");
 	while (tmp != NULL)
 	{
-		printf("%i[%i] ", tmp->content,tmp->index);
+		printf("%i[%i] ", tmp->content, tmp->index);
 		tmp = (tmp)->next;
 	}
 	printf("done\n");

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:12:42 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/15 22:54:04 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:21:58 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_sort3(t_list **stack_a)
 		if (sort3_variants(stack_a) == 5)
 		{
 			sa(stack_a);
-			rra(stack_a);//need check!
+			rra(stack_a); // need check!
 		}
 	}
 	else
@@ -71,13 +71,13 @@ void	ft_sort3(t_list **stack_a)
 
 void	ft_sort4(t_list **stack_a, t_list **stack_b)
 {
-	//printf("size:%d\n",lst_size(*stack_a));
+	// printf("size:%d\n",lst_size(*stack_a));
 	if (lst_size(*stack_a) == 4)
 	{
 		if (lst_sorted(*stack_a) == 1)
 		{
 			putmin_top(stack_a);
-			//ft_printlst(stack_a);
+			// ft_printlst(stack_a);
 			pb(stack_a, stack_b);
 			ft_sort3(stack_a);
 			pa(stack_a, stack_b);
@@ -92,9 +92,9 @@ void	ft_sort5(t_list **stack_a, t_list **stack_b)
 	if (lst_size(*stack_a) == 5)
 	{
 		putmin_top(stack_a);
-		pb(stack_a,stack_b);
-		ft_sort4(stack_a,stack_b);
-		pa(stack_a,stack_b);
+		pb(stack_a, stack_b);
+		ft_sort4(stack_a, stack_b);
+		pa(stack_a, stack_b);
 	}
 	else
 		printf("error sort5\n");

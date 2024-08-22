@@ -12,98 +12,9 @@
 
 #include "push_swap.h"
 
-/*ahora que le paso por parametros los argumentos quiero comprobar que sean numeros*/
-static int	checker_digits(char *str)
-{
-	int	i;
-	int	r;
-
-	i = 0;
-	r = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) == 1)
-		{
-			r++;
-			//write(1, "r", 1);
-		}
-		else
-			return (-1);
-		i++;
-	}
-	return (r);
-}
-
-/*Ahora que he confirmado que son numeros los paso a int con el atoi,en el cual tengo una
- flag que me dice si alguno de los numeros se pasa del max y el min int si esto pasa retorna error.*/
-
-static int	arg_checker(char **av, int flagr)
-{
-	int	i;
-
-	i = 1;
-	while (av[i] != NULL)
-	{
-		//write(1, "a", 1);
-		// printf("Numeros: %s\n", av[i]);
-		if (checker_digits(av[i]) != -1)
-			ft_atoi(av[i], &flagr);
-		else
-			return (write(1, "CHECK\n", 6), -1);
-		if (flagr == 1)
-			return (write(1, "flag\n", 5), -1);
-		i++;
-	}
-	return (1);
-}
-
 /*ahora necestio un funcion para crear un nodo i iguradar el valor de ft_aoti en el nodo*/
 /*funcion addback para agregar el nodo a la lista */
 /*funcion para recorer la lista en busca del mismo numero para ver si se repite*/
-
-void free_lst(t_list *stack)
-{
-	t_list *node;
-
-	while(stack != NULL)
-	{
-		//write(1,"a\n", 2);
-		node = stack;
-		stack = stack->next;
-		free(node);
-	}
-	exit(1);
-}
-
-int lst_sorted(t_list *stack_a)
-{
-	t_list *tmp;
-
-	tmp = stack_a;
-	while(tmp->next !=  NULL)
-	{
-		//printf("[%d]\n", stack_a->content);
-		if (tmp->content > tmp->next->content)
-			return(1);
-		tmp = tmp->next;
-	}
-	return(0);
-}
-
-/*
-void print_stack(t_list *stack)
-{
-	int i; 
-
-	i = 0;
-	while(stack != NULL)
-	{
-		printf("[%d] - %d\n", i++, stack->content);
-		stack = stack->next;
-	}
-}*/
 
 static t_list	*make_stack_a(char **av)
 {
@@ -131,24 +42,6 @@ static t_list	*make_stack_a(char **av)
 	//ft_printlst(&stack_a);
 	return (stack_a);
 }
-/*
-void  *get_index(t_list *stack_a)
-{
-	t_list *tmp;
-	int i;
-
-	tmp = stack_a;
-	i = 0;
-	while(tmp)
-	{
-		if(find_min(stack_a))
-		{
-			tmp->index = i++;
-		}
-		tmp = tmp->next;
-	}
-	return();
-}*/
 
 void check_sort(t_list **stack_a, t_list **stack_b)
 {

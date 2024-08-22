@@ -30,16 +30,20 @@ int long			ft_atoi(char *str, int *flagr);
 t_list				*ft_newlst(int num);
 t_list				*ft_last_lst(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
-int					ft_checkrepeat(t_list *lst);
+void				free_lst(t_list *stack);
 void				ft_printlst(t_list **lst);
 int					check_dupe(t_list *lst, int num);
 int					lst_size(t_list *lst);
 int					lst_sorted(t_list *stack_a);
 
+/*chekcs*/
+int				checker_digits(char *str);
+int				arg_checker(char **av, int flagr);
+
 /*moves*/
 
 void				find_min(t_list **stack_a);
-void putmin_top(t_list **stack_a);
+void				putmin_top(t_list **stack_a);
 void				swap(t_list **stack);
 void				rotate(t_list **stack);
 void				push(t_list **stack_a, t_list **stack_b);
@@ -52,6 +56,6 @@ void				ft_sort2(t_list **stack_a);
 void				ft_sort3(t_list **stack_a);
 void				ft_sort4(t_list **stack_a, t_list **stack_b);
 void				ft_sort5(t_list **stack_a, t_list **stack_b);
-void radix_sort(t_list **stack_a, t_list **stack_b);
+void				radix_sort(t_list **stack_a, t_list **stack_b);
 
 #endif

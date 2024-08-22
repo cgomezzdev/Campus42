@@ -38,26 +38,6 @@ int lst_size(t_list *lst)
 	return(size);
 }
 
-int     ft_checkrepeat(t_list *lst)
-{
-        t_list  *tmp1;
-        t_list  *tmp2;
-
-        tmp1 = lst;
-        while (tmp1->next != NULL)
-        {
-                tmp2 = tmp1->next;
-                while (tmp2)
-                {
-                        if (tmp1->content == tmp2->content)
-                                return (-1);
-                        tmp2 = tmp2->next;
-                }
-                tmp1 = tmp1->next;
-        }
-        return (0);
-}
-
 t_list  *ft_last_lst(t_list *lst)
 {
         if (!lst)
@@ -81,4 +61,18 @@ void    ft_lstadd_back(t_list **lst, t_list *new)
         last = ft_last_lst(*lst);
 		//printf("last:%d\n",last->content);
         last->next = new;
+}
+
+void free_lst(t_list *stack)
+{
+        t_list *node;
+
+        while(stack != NULL)
+        {
+                //write(1,"a\n", 2);
+                node = stack;
+                stack = stack->next;
+                free(node);
+        }
+        exit(1);
 }

@@ -2,6 +2,7 @@
 #include "push_swap.h"
 
 /*Esta funcion es par encontrar el nodo con el valor mas pqueño siempre que el indice sea -1 ya que asi saltara los que ya tienen indice y esto es para que la funcion get index le pongar el indice*/
+
 t_list *get_min_num(t_list **stack_a)
 {
 	t_list *tmp;
@@ -24,6 +25,7 @@ t_list *get_min_num(t_list **stack_a)
 }
 
 /*Esta funcion llama a get min para cada vez que consiga el valor mmas pequeño de la lista y le da en nuevo valor al indice*/
+
 void get_index_num(t_list **stack_a)
 {
 	t_list *min_num;
@@ -40,6 +42,7 @@ void get_index_num(t_list **stack_a)
 
 /*En esta funcion buscaremos el indice del numero mas grade
  Y devolvermos el numero de bits necesarios desplazados a la derecha hasta que llegue a 0*/
+
 int max_i_bits(t_list **stack_a)
 {
 	t_list *tmp;

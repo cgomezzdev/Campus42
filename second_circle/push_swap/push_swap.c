@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:06:03 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/23 01:20:11 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:43:42 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ int	main(int ac, char *av[])
 	a = NULL;
 	b = NULL;
 	flagr = 0;
-	if (ac <= 2)
+	if (ac <= 1)
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
 	if (arg_checker(av, flagr) == 1)
 		a = make_stack_a(av);
+	else
+		return (1);
 	if (lst_sorted(a) == 0)
 	{
 		printf("stack already sorted!\n");

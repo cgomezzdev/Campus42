@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 01:20:32 by cgomez-z          #+#    #+#             */
-/*   Updated: 2024/08/23 01:20:37 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:42:53 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	checker_digits(char *str)
 	int	i;
 	int	r;
 
+	if (!str)
+		return (-1);
 	i = 0;
 	r = 0;
 	if (str[i] == '-' || str[i] == '+')

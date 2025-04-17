@@ -6,7 +6,7 @@
 #    By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 13:02:57 by cgomez-z          #+#    #+#              #
-#    Updated: 2025/04/16 18:44:21 by cgomez-z         ###   ########.fr        #
+#    Updated: 2025/04/17 01:16:59 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Werror -Wextra -g #-fsanitize=address
 #<------------->FILES<------------->
 
 HEADER = philo.h
-C_FILES = clean.c init.c main.c monitor.c parser.c philo.c utils.c
+C_FILES = philo.c 
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->

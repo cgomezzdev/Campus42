@@ -6,40 +6,72 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/17 01:24:57 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:01:54 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *arg)
+void	thinking(t_philo *philo) // while try to take the forks
 {
-	printf("a\n");
+	printf("philo X is thinking");
 }
 
-void init_philo(int p)
+void	sleeping(t_philo *philo) // while the time to sleep is not finish
 {
-	pthread_t	philo[p];
+	printf("philo X is sleeping");
+	while (philo->tts > -1) // ill use usleep for this
+	{
+		philo->tts--;
+	}
+	return ;
+}
+
+void	eating(t_philo *philo)
+		// try to take the forks when he have it he eat when he finish take of the forks
+{
+	pthread_mutex_lock(philo->own_fork);
+	pthread_mutex_lock(philo->other_fork);
+	printf("philo X has taken a fork");
+	while (philo->tte > -1) // ill use usleep for this
+	{
+		philo->tte--;
+	}
+	printf("philo X is eating");
+	pthread_mutex_unlock(philo->own_fork);
+	pthread_mutex_unlock(philo->other_fork);
+}
+
+void	*routine(void *arg) // call the functions eating sleeping and thinking
+{
+	t_philo *philo = (t_philo *)arg;
+	printf("a\n");
+	eating(philo);
+	sleeping(philo);
+	thinking(philo);
+}
+
+void	init_philo(t_data *data)
+{
+	int p;
 	int			i;
 
 	i = 0;
-	while (i <= p)
+	p = data->philos[0]->total_philos;
+	while (i < p)
 	{
-		pthread_create(&philo[i], NULL, routine, NULL);
+		pthread_create(&data->philos[i], NULL, routine, data->philos);
 		i++;
 	}
 }
 
 int	main(void)
 {
-	int	p;
-	int	ttd;
-	int	tte;
-	int	tts;
+	t_data	data;
 
-	p = 50;
-	ttd = 800;
-	tte = 50;
-	tts = 100;
-	init_philo(p);
+	data.philos.n_philo = 10;
+	data.philos.ttd = 800;
+	data.philos.tte = 50;
+	data.philos.tts = 100;
+	init_philo(&data);
 }

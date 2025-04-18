@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:05:28 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/17 17:32:57 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:56:51 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 typedef struct s_philo
 {
-	int total_philos;            // number of total philos
 	int n_philo;                 // philo id;
 	int tte;                     // time_to_eat
 	int tts;                     // time_to_sleep
@@ -34,7 +33,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	t_philo			**philos;
-	pthread_t		**threads;
+	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 }					t_data;
 

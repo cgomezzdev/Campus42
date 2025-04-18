@@ -28,7 +28,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(O_FILES)
-	$(CC) $(CFLAGS) $(O_FILES) -o $(NAME)
+	$(CC) $(CFLAGS) $(O_FILES) -o $(NAME) -lpthread
 
 #<------------->PHONY<------------->
 

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:05:28 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/18 00:56:51 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:01:52 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 {
 	t_philo			**philos;
 	pthread_t		*threads;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	**forks;
 }					t_data;
 
 #endif

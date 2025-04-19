@@ -47,7 +47,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_lock(philo->own_fork);
 	print_philo_status(philo, "has taken his own fork");
 	pthread_mutex_lock(philo->other_fork);
-	print_philo_status(philo, "has taken his own fork");
+	print_philo_status(philo, "has taken his the other fork");
 	print_philo_status(philo, "is eating");
 	usleep(philo->tte * 1000);
 	pthread_mutex_unlock(philo->own_fork);

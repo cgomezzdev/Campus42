@@ -12,13 +12,6 @@
 
 #include "philo.h"
 
-// ideas para saber cuando un philio a muerto por no comer
-// add una flag que se active cuando come y de desactive cuando deja de comer o
-// add una nueva variable a la struct que guarde el tiempo de la ultima vez que comio
-// y si el tiempo actual
-//	- el tiempo de la ultima comida es mas pequeny que el ttd entonces
-// el sabes si el philo muero por no comer.
-
 long	get_timestamp(void)
 {
 	struct timeval	tv;
@@ -27,29 +20,42 @@ long	get_timestamp(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	print_philo_status(t_philo *philo, char *accion)
+void print_philo_status(t_philo *philo, char *accion)
 {
-	long	timestamp;
+    long timestamp;
 
-	timestamp = get_timestamp() - philo->data->start_time;
-	printf("%ld philo %i %s\n", timestamp, philo->n_philo, accion);
+    pthread_mutex_lock(&philo->data->dead_mutex);
+    if (!philo->data->someone_die)
+    {
+        timestamp = get_timestamp() - philo->data->start_time;
+        printf("%ld philo %i %s\n", timestamp, philo->n_philo, accion);
+    }
+    pthread_mutex_unlock(&philo->data->dead_mutex);
 }
 
-void	check_dead(t_data *data)
-{
-	int	i;
 
-	i = 0;
-	while (i < data->total_philos && data->someone_die == 0)
-	{
-		if (get_timestamp() - data->philos[i]->last_meal > data->philos[i]->ttd)
-		{
-			print_philo_status(data->philos[i], "die!!!!!!!!!!!!!!!!!!!!!!!!!");
-			data->someone_die = 1;
-		}
-		i++;
-	}
+void    check_dead(t_data *data)
+{
+    int i = 0;
+
+    while (i < data->total_philos && data->someone_die == 0)
+    {
+        pthread_mutex_lock(&data->philos[i]->meal_mutex);
+        if (get_timestamp() - data->philos[i]->last_meal > data->philos[i]->ttd)
+        {
+            pthread_mutex_lock(&data->dead_mutex);
+            if (!data->someone_die)
+            {
+                print_philo_status(data->philos[i], "died");
+                data->someone_die = 1;
+            }
+            pthread_mutex_unlock(&data->dead_mutex);
+        }
+        pthread_mutex_unlock(&data->philos[i]->meal_mutex);
+        i++;
+    }
 }
+
 
 void	init_forks(t_data *data)
 {
@@ -87,7 +93,9 @@ int	main(void)
 	data.threads = malloc((data.total_philos) * sizeof(pthread_t));
 	data.forks = malloc((data.total_philos) * sizeof(pthread_mutex_t));
 	data.someone_die = 0;
+	pthread_mutex_init(&data.dead_mutex,NULL);
 	data.start_time = get_timestamp();
+	init_forks(&data);
 	while (i < data.total_philos)
 	{
 		data.philos[i] = malloc(sizeof(t_philo));
@@ -97,14 +105,14 @@ int	main(void)
 		data.philos[i]->tte = 200;
 		data.philos[i]->tts = 100;
 		data.philos[i]->last_meal = data.start_time;
+		pthread_mutex_init(&data.philos[i]->meal_mutex, NULL);
 		data.philos[i]->own_fork = &data.forks[i];
 		data.philos[i]->other_fork = &data.forks[(i + 1) % data.total_philos];
 		i++;
 	}
-	init_forks(&data);
 	printf("time %ld\n", get_timestamp() - data.start_time);
 	init_philo(&data);
-	while (1)
+	while (!data.someone_die)
 		check_dead(&data);
 	i = 0;
 	while (i < data.total_philos)

@@ -27,6 +27,7 @@ typedef struct s_philo
 	int tte;                     // time_to_eat
 	int tts;                     // time_to_sleep
 	long last_meal;              // last time that a philo eat
+	pthread_mutex_t meal_mutex; // fork for the update meal value
 	pthread_mutex_t *own_fork;   // fork for the philo
 	pthread_mutex_t *other_fork; // fork for the other philo
 	struct s_data *data;         // to have acces to data like the time
@@ -37,6 +38,7 @@ typedef struct s_data
 	t_philo			**philos;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	dead_mutex;
 	long			start_time;
 	int				someone_die;
 	int				total_philos;

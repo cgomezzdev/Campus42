@@ -106,7 +106,7 @@ int	main(void)
 		data.philos[i] = malloc(sizeof(t_philo));
 		data.philos[i]->data = &data;
 		data.philos[i]->n_philo = i;
-		data.philos[i]->ttd = 300;
+		data.philos[i]->ttd = 400;
 		data.philos[i]->tte = 200;
 		data.philos[i]->tts = 100;
 		data.philos[i]->last_meal = data.start_time;

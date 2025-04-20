@@ -44,10 +44,10 @@ void	*routine(void *arg) // call the functions eating sleeping and thinking
 {
 	t_philo *philo = (t_philo *)arg;
 
-	usleep(100);
+	usleep(50);
 	if (philo->n_philo % 2 == 1)
 		usleep((philo->tte / 2) * 1000);
-	while (1)
+	while (!philo->data->someone_die)
 	{
 		eating(philo);
 		sleeping(philo);

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/20 03:38:17 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:30:28 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(void)
 {
 	t_data	data;
 	int		i;
+	int		j;
 
 	i = 0;
 	data.total_philos = 10;
@@ -101,11 +102,12 @@ int	main(void)
 	pthread_mutex_init(&data.dead_mutex, NULL);
 	data.start_time = get_timestamp();
 	init_forks(&data);
+	j = 1;
 	while (i < data.total_philos)
 	{
 		data.philos[i] = malloc(sizeof(t_philo));
 		data.philos[i]->data = &data;
-		data.philos[i]->n_philo = i;
+		data.philos[i]->n_philo = j;
 		data.philos[i]->ttd = 400;
 		data.philos[i]->tte = 200;
 		data.philos[i]->tts = 100;
@@ -114,8 +116,8 @@ int	main(void)
 		data.philos[i]->own_fork = &data.forks[i];
 		data.philos[i]->other_fork = &data.forks[(i + 1) % data.total_philos];
 		i++;
+		j++;
 	}
-	printf("time %ld\n", get_timestamp() - data.start_time);
 	init_philo(&data);
 	while (!data.someone_die)
 		check_dead(&data);

@@ -6,12 +6,35 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/21 15:30:28 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:13:44 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <string.h>
+
+void	*gods_eye(void *arg)
+{
+	t_data	*data;
+
+	data = (t_data *)arg;
+	while (1)
+	{
+		pthread_mutex_lock(&data->fed_mutex);
+		if (data->total_fed_philos == data->total_philos)
+		{
+			pthread_mutex_unlock(&data->fed_mutex);
+			pthread_mutex_lock(&data->dead_mutex);
+			data->someone_die = 1;
+			pthread_mutex_unlock(&data->dead_mutex);
+			printf("WE AR FULL\n");
+			break ;
+		}
+		pthread_mutex_unlock(&data->fed_mutex);
+		usleep(1000);
+	}
+	return (NULL);
+}
 
 long	get_timestamp(void)
 {
@@ -91,41 +114,42 @@ int	main(void)
 {
 	t_data	data;
 	int		i;
-	int		j;
 
 	i = 0;
-	data.total_philos = 10;
+	data.total_philos = 51;
 	data.philos = malloc((data.total_philos) * sizeof(t_philo *));
 	data.threads = malloc((data.total_philos) * sizeof(pthread_t));
 	data.forks = malloc((data.total_philos) * sizeof(pthread_mutex_t));
 	data.someone_die = 0;
+	data.total_fed_philos = 0;
 	pthread_mutex_init(&data.dead_mutex, NULL);
+	pthread_mutex_init(&data.fed_mutex, NULL);
 	data.start_time = get_timestamp();
 	init_forks(&data);
-	j = 1;
 	while (i < data.total_philos)
 	{
 		data.philos[i] = malloc(sizeof(t_philo));
 		data.philos[i]->data = &data;
-		data.philos[i]->n_philo = j;
-		data.philos[i]->ttd = 400;
+		data.philos[i]->n_philo = i + 1;
+		data.philos[i]->ttd = 800;
 		data.philos[i]->tte = 200;
 		data.philos[i]->tts = 100;
+		data.philos[i]->num_min_meals = 7;
 		data.philos[i]->last_meal = data.start_time;
 		pthread_mutex_init(&data.philos[i]->meal_mutex, NULL);
 		data.philos[i]->own_fork = &data.forks[i];
 		data.philos[i]->other_fork = &data.forks[(i + 1) % data.total_philos];
 		i++;
-		j++;
 	}
 	init_philo(&data);
-	while (!data.someone_die)
-		check_dead(&data);
+	pthread_create(&data.god_thread, NULL, gods_eye, &data);
 	i = 0;
 	while (i < data.total_philos)
 	{
 		pthread_join(data.threads[i], NULL);
 		i++;
 	}
+	pthread_join(data.god_thread,NULL);
+  	destroy_and_free(&data); 
 	return (0);
 }

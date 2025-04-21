@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rutine.c                                           :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:43:02 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/19 18:43:34 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:13:34 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	destroy_and_free(t_data *data)
+{
+	int	i;
+
+	// Destruir mutex y liberar cada filósofo
+	i = 0;
+	while (i < data->total_philos)
+	{
+		pthread_mutex_destroy(&data->philos[i]->meal_mutex);
+		free(data->philos[i]);
+		i++;
+	}
+	free(data->philos);
+
+	// Destruir y liberar los forks (mutexes)
+	i = 0;
+	while (i < data->total_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->forks);
+
+	// Destruir mutexes globales
+	pthread_mutex_destroy(&data->dead_mutex);
+	pthread_mutex_destroy(&data->fed_mutex);
+
+	// Liberar array de hilos
+	free(data->threads);
+}
+
 
 void	thinking(t_philo *philo) // while try to take the forks
 {
@@ -28,9 +60,9 @@ void	eating(t_philo *philo)
 // try to take the forks when he have it he eat when he finish take of the forks
 {
 	pthread_mutex_lock(philo->own_fork);
-	print_philo_status(philo, "has taken his own fork");
+	print_philo_status(philo, "has taken a fork");
 	pthread_mutex_lock(philo->other_fork);
-	print_philo_status(philo, "has taken his the other fork");
+	print_philo_status(philo, "has taken a fork");
 	print_philo_status(philo, "is eating");
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = get_timestamp();
@@ -43,13 +75,23 @@ void	eating(t_philo *philo)
 void	*routine(void *arg) // call the functions eating sleeping and thinking
 {
 	t_philo *philo = (t_philo *)arg;
+	int check_min_meals;
 
+	check_min_meals = 0;
 	usleep(50);
 	if (philo->n_philo % 2 == 1)
 		usleep((philo->tte / 2) * 1000);
 	while (!philo->data->someone_die)
 	{
 		eating(philo);
+		check_min_meals++;
+		if (check_min_meals == philo->num_min_meals)
+		{
+			pthread_mutex_lock(&philo->data->fed_mutex);
+			philo->data->total_fed_philos++;
+			pthread_mutex_unlock(&philo->data->fed_mutex);
+			break ;
+		}
 		sleeping(philo);
 		thinking(philo);
 	}

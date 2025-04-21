@@ -6,13 +6,13 @@
 #    By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 13:02:57 by cgomez-z          #+#    #+#              #
-#    Updated: 2025/04/19 18:53:46 by cgomez-z         ###   ########.fr        #
+#    Updated: 2025/04/21 20:39:15 by cgomez-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Werror -Wextra -g #-fsanitize=address
+CFLAGS = -Werror -Wextra -Wall -g -fsanitize=thread
 
 #<------------->FILES<------------->
 

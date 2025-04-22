@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/21 21:13:44 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:30:27 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*gods_eye(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&data->fed_mutex);
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -116,6 +116,7 @@ int	main(void)
 	int		i;
 
 	i = 0;
+	//parser(ac,av);
 	data.total_philos = 51;
 	data.philos = malloc((data.total_philos) * sizeof(t_philo *));
 	data.threads = malloc((data.total_philos) * sizeof(pthread_t));
@@ -142,6 +143,7 @@ int	main(void)
 		i++;
 	}
 	init_philo(&data);
+	usleep(50);
 	pthread_create(&data.god_thread, NULL, gods_eye, &data);
 	i = 0;
 	while (i < data.total_philos)
@@ -149,7 +151,7 @@ int	main(void)
 		pthread_join(data.threads[i], NULL);
 		i++;
 	}
-	pthread_join(data.god_thread,NULL);
-  	destroy_and_free(&data); 
+	pthread_join(data.god_thread, NULL);
+	destroy_and_free(&data);
 	return (0);
 }

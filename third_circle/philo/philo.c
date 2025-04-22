@@ -110,13 +110,17 @@ void	init_philo(t_data *data)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_data	data;
 	int		i;
 
 	i = 0;
-	//parser(ac,av);
+	if(parser(ac,av) == 1)
+	{
+		printf("invalid arguments");
+		return(1);
+	}
 	data.total_philos = 51;
 	data.philos = malloc((data.total_philos) * sizeof(t_philo *));
 	data.threads = malloc((data.total_philos) * sizeof(pthread_t));

@@ -48,6 +48,7 @@ typedef struct s_data
 	int				total_philos;
 }					t_data;
 
+int	parser(int ac, char **av);
 void				thinking(t_philo *philo);
 void				sleeping(t_philo *philo);
 void				eating(t_philo *philo);

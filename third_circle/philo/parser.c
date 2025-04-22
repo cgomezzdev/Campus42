@@ -12,6 +12,22 @@
 
 #include <stdio.h>
 
+int ft_atoi(char *s)
+{
+	printf("str = %s\n",s);
+	int i;
+	int num;
+
+	num = 0;
+	i = 0;
+	while(s[i])
+	{
+		num = (num * 10) + s[i] - '0'; 
+		i++;
+	}
+	return(num);
+}
+
 int	is_num(char *s)
 {
 	int	i;
@@ -31,8 +47,8 @@ int	parser(int ac, char **av)
 {
 	int	i;
 
-	i = 0;
-	if (ac > 3 && ac < 6)
+	i = 1;
+	if (ac > 4 && ac < 7)
 	{
 		while (av[i])
 		{
@@ -46,11 +62,22 @@ int	parser(int ac, char **av)
 	return (0);
 }
 
+/*
 int	main(int ac, char **av)
 {
+	int i;
+
+	i = 1; 
 	if (parser(ac, av) == 0)
-		printf("todo bien");
+	{
+		while(av[i])
+		{
+			printf("num: %i\n", ft_atoi(av[i]));
+			i++;
+		}
+		printf("todo bien\n");
+	}
 	else
-		printf("todo mal");
+		printf("todo mal\n");
 	return (0);
-}
+}*/

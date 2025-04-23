@@ -48,6 +48,7 @@ typedef struct s_data
 	int				total_philos;
 }					t_data;
 
+int ft_strcmp(char *s1, char *s2);
 int					parser(int ac, char **av);
 int					ft_atoi(char *s);
 void				thinking(t_philo *philo);

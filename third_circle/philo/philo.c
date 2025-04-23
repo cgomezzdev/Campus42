@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <string.h>
 
 void	print_philo_status(t_philo *philo, char *action)
 {
@@ -20,7 +19,7 @@ void	print_philo_status(t_philo *philo, char *action)
 	pthread_mutex_lock(&philo->data->dead_mutex);
 	timestamp = get_timestamp() - philo->data->start_time;
 	// Permite imprimir si nadie ha muerto, o si el mensaje es de muerte
-	if (!philo->data->someone_die || strcmp(action, "died!!!!!!") == 0)
+	if (!philo->data->someone_die || ft_strcmp(action, "died!!!!!!") == 0)
 		printf("%ld philo %i %s\n", timestamp, philo->n_philo, action);
 	pthread_mutex_unlock(&philo->data->dead_mutex);
 }

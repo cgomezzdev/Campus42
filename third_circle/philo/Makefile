@@ -17,7 +17,7 @@ CFLAGS = -Werror -Wextra -Wall -g #-fsanitize=thread
 #<------------->FILES<------------->
 
 HEADER = philo.h
-C_FILES = philo.c routine.c parser.c
+C_FILES = philo.c routine.c parser.c utils.c
 O_FILES = $(C_FILES:.c=.o)
 
 #<------------->RULES<------------->

@@ -12,21 +12,6 @@
 
 #include <stdio.h>
 
-int ft_atoi(char *s)
-{
-	int i;
-	int num;
-
-	num = 0;
-	i = 0;
-	while(s[i])
-	{
-		num = (num * 10) + s[i] - '0'; 
-		i++;
-	}
-	return(num);
-}
-
 int	is_num(char *s)
 {
 	int	i;
@@ -60,23 +45,3 @@ int	parser(int ac, char **av)
 		return (1);
 	return (0);
 }
-
-/*
-int	main(int ac, char **av)
-{
-	int i;
-
-	i = 1; 
-	if (parser(ac, av) == 0)
-	{
-		while(av[i])
-		{
-			printf("num: %i\n", ft_atoi(av[i]));
-			i++;
-		}
-		printf("todo bien\n");
-	}
-	else
-		printf("todo mal\n");
-	return (0);
-}*/

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/22 18:30:27 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/23 03:58:17 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_philo_status(t_philo *philo, char *accion)
 	pthread_mutex_lock(&philo->data->dead_mutex);
 	timestamp = get_timestamp() - philo->data->start_time;
 	// Permite imprimir si nadie ha muerto, o si el mensaje es de muerte
-	if (!philo->data->someone_die || strcmp(accion, "died!!!!!!!!!!") == 0)
+	if (!philo->data->someone_die || strcmp(accion, "died!!!!!!") == 0)
 		printf("%ld philo %i %s\n", timestamp, philo->n_philo, accion);
 	pthread_mutex_unlock(&philo->data->dead_mutex);
 }
@@ -74,7 +74,7 @@ void	check_dead(t_data *data)
 			{
 				data->someone_die = 1;
 				pthread_mutex_unlock(&data->dead_mutex);
-				print_philo_status(data->philos[i], "died!!!!!!!!!!");
+				print_philo_status(data->philos[i], "died!!!!!!");
 				return ;
 			}
 			pthread_mutex_unlock(&data->dead_mutex);
@@ -116,12 +116,12 @@ int	main(int ac, char **av)
 	int		i;
 
 	i = 0;
-	if(parser(ac,av) == 1)
+	if (parser(ac, av) == 1)
 	{
-		printf("invalid arguments");
-		return(1);
+		printf("invalid arguments\n");
+		return (1);
 	}
-	data.total_philos = 51;
+	data.total_philos = ft_atoi(av[1]);
 	data.philos = malloc((data.total_philos) * sizeof(t_philo *));
 	data.threads = malloc((data.total_philos) * sizeof(pthread_t));
 	data.forks = malloc((data.total_philos) * sizeof(pthread_mutex_t));
@@ -136,10 +136,11 @@ int	main(int ac, char **av)
 		data.philos[i] = malloc(sizeof(t_philo));
 		data.philos[i]->data = &data;
 		data.philos[i]->n_philo = i + 1;
-		data.philos[i]->ttd = 800;
-		data.philos[i]->tte = 200;
-		data.philos[i]->tts = 100;
-		data.philos[i]->num_min_meals = 7;
+		data.philos[i]->ttd = ft_atoi(av[2]);
+		data.philos[i]->tte = ft_atoi(av[3]);
+		data.philos[i]->tts = ft_atoi(av[4]);
+		if (av[5])
+			data.philos[i]->num_min_meals = ft_atoi(av[5]);
 		data.philos[i]->last_meal = data.start_time;
 		pthread_mutex_init(&data.philos[i]->meal_mutex, NULL);
 		data.philos[i]->own_fork = &data.forks[i];

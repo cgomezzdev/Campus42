@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:16:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/22 18:41:21 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/23 03:15:55 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int ft_atoi(char *s)
 {
-	printf("str = %s\n",s);
 	int i;
 	int num;
 

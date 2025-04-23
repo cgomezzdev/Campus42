@@ -6,12 +6,54 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/23 03:58:17 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:44:57 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <string.h>
+
+void	print_philo_status(t_philo *philo, char *action)
+{
+	long	timestamp;
+
+	pthread_mutex_lock(&philo->data->dead_mutex);
+	timestamp = get_timestamp() - philo->data->start_time;
+	// Permite imprimir si nadie ha muerto, o si el mensaje es de muerte
+	if (!philo->data->someone_die || strcmp(action, "died!!!!!!") == 0)
+		printf("%ld philo %i %s\n", timestamp, philo->n_philo, action);
+	pthread_mutex_unlock(&philo->data->dead_mutex);
+}
+
+int	check_dead(t_data *data)
+{
+	int		i;
+	long	now;
+
+	i = 0;
+	while (i < data->total_philos)
+	{
+		pthread_mutex_lock(&data->philos[i]->meal_mutex);
+		now = get_timestamp();
+		if (now - data->philos[i]->last_meal > data->philos[i]->ttd)
+		{
+			pthread_mutex_unlock(&data->philos[i]->meal_mutex);
+			pthread_mutex_lock(&data->dead_mutex);
+			if (!data->someone_die)
+			{
+				data->someone_die = 1;
+				pthread_mutex_unlock(&data->dead_mutex);
+				print_philo_status(data->philos[i], "died!!!!!!");
+				return (1);
+			}
+			pthread_mutex_unlock(&data->dead_mutex);
+		}
+		else
+			pthread_mutex_unlock(&data->philos[i]->meal_mutex);
+		i++;
+	}
+	return (0);
+}
 
 void	*gods_eye(void *arg)
 {
@@ -31,6 +73,8 @@ void	*gods_eye(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&data->fed_mutex);
+		if (check_dead(data))
+			break ;
 		usleep(500);
 	}
 	return (NULL);
@@ -42,47 +86,6 @@ long	get_timestamp(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-void	print_philo_status(t_philo *philo, char *accion)
-{
-	long	timestamp;
-
-	pthread_mutex_lock(&philo->data->dead_mutex);
-	timestamp = get_timestamp() - philo->data->start_time;
-	// Permite imprimir si nadie ha muerto, o si el mensaje es de muerte
-	if (!philo->data->someone_die || strcmp(accion, "died!!!!!!") == 0)
-		printf("%ld philo %i %s\n", timestamp, philo->n_philo, accion);
-	pthread_mutex_unlock(&philo->data->dead_mutex);
-}
-
-void	check_dead(t_data *data)
-{
-	int		i;
-	long	now;
-
-	i = 0;
-	while (i < data->total_philos)
-	{
-		pthread_mutex_lock(&data->philos[i]->meal_mutex);
-		now = get_timestamp();
-		if (now - data->philos[i]->last_meal > data->philos[i]->ttd)
-		{
-			pthread_mutex_unlock(&data->philos[i]->meal_mutex);
-			pthread_mutex_lock(&data->dead_mutex);
-			if (!data->someone_die)
-			{
-				data->someone_die = 1;
-				pthread_mutex_unlock(&data->dead_mutex);
-				print_philo_status(data->philos[i], "died!!!!!!");
-				return ;
-			}
-			pthread_mutex_unlock(&data->dead_mutex);
-		}
-		else
-			pthread_mutex_unlock(&data->philos[i]->meal_mutex);
-		i++;
-	}
 }
 
 void	init_forks(t_data *data)

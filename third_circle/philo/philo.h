@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:05:28 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/23 03:14:53 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:08:35 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void				eating(t_philo *philo);
 void				*routine(void *arg);
 void				destroy_and_free(t_data *data);
 
-void	print_philo_status(t_philo *philo, char *accion); // se escribe action
+void	print_philo_status(t_philo *philo, char *action); // se escribe action
 long				get_timestamp(void);
 
 #endif

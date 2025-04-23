@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:43:02 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/23 03:41:55 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:44:06 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	destroy_and_free(t_data *data)
 		i++;
 	}
 	free(data->philos);
-
 	// Destruir y liberar los forks (mutexes)
 	i = 0;
 	while (i < data->total_philos)
@@ -34,15 +33,12 @@ void	destroy_and_free(t_data *data)
 		i++;
 	}
 	free(data->forks);
-
 	// Destruir mutexes globales
 	pthread_mutex_destroy(&data->dead_mutex);
 	pthread_mutex_destroy(&data->fed_mutex);
-
 	// Liberar array de hilos
 	free(data->threads);
 }
-
 
 void	thinking(t_philo *philo) // while try to take the forks
 {
@@ -72,6 +68,17 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(philo->other_fork);
 }
 
+void	handle_one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->own_fork);
+	print_philo_status(philo, "has taken a fork");
+	usleep(philo->ttd * 1000);
+	pthread_mutex_unlock(philo->own_fork);
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = get_timestamp() - philo->data->start_time - philo->ttd;
+	pthread_mutex_unlock(&philo->meal_mutex);
+}
+
 void	*routine(void *arg) // call the functions eating sleeping and thinking
 {
 	t_philo *philo = (t_philo *)arg;
@@ -79,6 +86,11 @@ void	*routine(void *arg) // call the functions eating sleeping and thinking
 
 	check_min_meals = 0;
 	usleep(50);
+	if (philo->data->total_philos == 1)
+	{
+		handle_one_philo(philo);
+		return (NULL);
+	}
 	if (philo->n_philo % 2 == 1)
 		usleep((philo->tte / 2) * 1000);
 	while (!philo->data->someone_die)

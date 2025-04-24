@@ -6,39 +6,11 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:43:02 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/23 18:44:06 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 02:32:05 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	destroy_and_free(t_data *data)
-{
-	int	i;
-
-	// Destruir mutex y liberar cada filósofo
-	i = 0;
-	while (i < data->total_philos)
-	{
-		pthread_mutex_destroy(&data->philos[i]->meal_mutex);
-		free(data->philos[i]);
-		i++;
-	}
-	free(data->philos);
-	// Destruir y liberar los forks (mutexes)
-	i = 0;
-	while (i < data->total_philos)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-	free(data->forks);
-	// Destruir mutexes globales
-	pthread_mutex_destroy(&data->dead_mutex);
-	pthread_mutex_destroy(&data->fed_mutex);
-	// Liberar array de hilos
-	free(data->threads);
-}
 
 void	thinking(t_philo *philo) // while try to take the forks
 {
@@ -81,16 +53,14 @@ void	handle_one_philo(t_philo *philo)
 
 void	*routine(void *arg) // call the functions eating sleeping and thinking
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo *philo;
 	int check_min_meals;
 
+	philo = (t_philo *)arg;
 	check_min_meals = 0;
 	usleep(50);
 	if (philo->data->total_philos == 1)
-	{
-		handle_one_philo(philo);
-		return (NULL);
-	}
+		return (handle_one_philo(philo), NULL);
 	if (philo->n_philo % 2 == 1)
 		usleep((philo->tte / 2) * 1000);
 	while (!philo->data->someone_die)

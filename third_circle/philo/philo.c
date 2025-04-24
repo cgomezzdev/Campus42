@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 14:04:08 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:59:23 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ void	*monitor(void *arg)
 		pthread_mutex_unlock(&data->fed_mutex);
 		if (check_dead(data))
 			break ;
-		usleep(500);
 	}
-	usleep(500);
+	//usleep(500);
 	return (NULL);
 }
 
@@ -98,18 +97,18 @@ int	main(int ac, char **av)
 	pthread_mutex_init(&data.dead_mutex, NULL);
 	pthread_mutex_init(&data.fed_mutex, NULL);
 	data.start_time = get_timestamp();
-	init_forks(&data);
 	init_philos_data(&data, av);
+	init_forks(&data);
 	init_philo_routine(&data);
 	usleep(100);
-	pthread_create(&data.god_thread, NULL, monitor, &data);
+	pthread_create(&data.monitor_thread, NULL, monitor, &data);
 	i = 0;
 	while (i < data.total_philos)
 	{
 		pthread_join(data.threads[i], NULL);
 		i++;
 	}
-	pthread_join(data.god_thread, NULL);
+	pthread_join(data.monitor_thread, NULL);
 	destroy_and_free(&data);
 	return (0);
 }

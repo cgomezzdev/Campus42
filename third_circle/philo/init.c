@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 02:11:50 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 14:03:46 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:23:36 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_forks(t_data *data)
 	int	i;
 
 	i = 0;
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->total_philos);
+	//data->forks = malloc(sizeof(pthread_mutex_t) * data->total_philos);
 	while (i < data->total_philos)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);

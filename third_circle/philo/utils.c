@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 00:28:56 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 02:30:04 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:15:50 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,30 @@ int	ft_atoi(char *s)
 	return (num);
 }
 
-void    destroy_and_free(t_data *data)
+void	destroy_and_free(t_data *data)
 {
-        int     i;
+	int	i;
 
-        // Destruir mutex y liberar cada filósofo
-        i = 0;
-        while (i < data->total_philos)
-        {
-                pthread_mutex_destroy(&data->philos[i]->meal_mutex);
-                free(data->philos[i]);
-                i++;
-        }
-        free(data->philos);
-        // Destruir y liberar los forks (mutexes)
-        i = 0;
-        while (i < data->total_philos)
-        {
-                pthread_mutex_destroy(&data->forks[i]);
-                i++;
-        }
-        free(data->forks);
-        // Destruir mutexes globales
-        pthread_mutex_destroy(&data->dead_mutex);
-        pthread_mutex_destroy(&data->fed_mutex);
-        // Liberar array de hilos
-        free(data->threads);
+	// Destruir mutex y liberar cada filósofo
+	i = 0;
+	while (i < data->total_philos)
+	{
+		pthread_mutex_destroy(&data->philos[i]->meal_mutex);
+		free(data->philos[i]);
+		i++;
+	}
+	free(data->philos);
+	// Destruir y liberar los forks (mutexes)
+	i = 0;
+	while (i < data->total_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->forks);
+	// Destruir mutexes globales
+	pthread_mutex_destroy(&data->dead_mutex);
+	pthread_mutex_destroy(&data->fed_mutex);
+	// Liberar array de hilos
+	free(data->threads);
 }

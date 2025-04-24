@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:05:28 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 14:04:04 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:59:35 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_data
 {
 	t_philo			**philos;
 	pthread_t		*threads;
-	pthread_t		god_thread;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	dead_mutex;
 	pthread_mutex_t	fed_mutex;
@@ -51,6 +51,7 @@ typedef struct s_data
 int					ft_strcmp(char *s1, char *s2);
 int					parser(int ac, char **av);
 int					ft_atoi(char *s);
+int					check_dead(t_data *data);
 void				thinking(t_philo *philo);
 void				sleeping(t_philo *philo);
 void				eating(t_philo *philo);

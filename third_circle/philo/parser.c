@@ -6,11 +6,11 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:16:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 00:31:07 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:48:15 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "philo.h"
 
 int	is_num(char *s)
 {
@@ -36,7 +36,7 @@ int	parser(int ac, char **av)
 	{
 		while (av[i])
 		{
-			if (is_num(av[i]) == 1)
+			if (is_num(av[i]) == 1 || ft_strcmp(av[1], "0") == 0)
 				return (1);
 			i++;
 		}

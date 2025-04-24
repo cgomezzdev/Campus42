@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 02:11:50 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 02:27:27 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:03:46 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_forks(t_data *data)
 	}
 }
 
-void	init_philo(t_data *data)
+void	init_philo_routine(t_data *data)
 {
 	int	i;
 

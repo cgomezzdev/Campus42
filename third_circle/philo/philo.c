@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 02:27:58 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:04:08 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	*monitor(void *arg)
 			break ;
 		usleep(500);
 	}
+	usleep(500);
 	return (NULL);
 }
 
@@ -99,8 +100,8 @@ int	main(int ac, char **av)
 	data.start_time = get_timestamp();
 	init_forks(&data);
 	init_philos_data(&data, av);
-	init_philo(&data);
-	usleep(50);
+	init_philo_routine(&data);
+	usleep(100);
 	pthread_create(&data.god_thread, NULL, monitor, &data);
 	i = 0;
 	while (i < data.total_philos)

@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/25 14:58:16 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:42:32 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*monitor(void *arg)
 			pthread_mutex_lock(&data->dead_mutex);
 			data->someone_die = 1;
 			pthread_mutex_unlock(&data->dead_mutex);
-			printf("WE AR FULL\n");
+			printf("WE ARE FULL\n");
 			break ;
 		}
 		pthread_mutex_unlock(&data->fed_mutex);
@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 
 	i = 0;
 	if (parser(ac, av) == 1)
-		return (printf("invalid arguments\n"), 1);
+		return (printf("Invalid arguments\n"), 1);
 	data.someone_die = 0;
 	data.total_fed_philos = 0;
 	pthread_mutex_init(&data.dead_mutex, NULL);

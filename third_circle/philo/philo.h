@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:05:28 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/25 02:15:50 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:24:16 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@
 
 typedef struct s_philo
 {
-	int n_philo;                 // philo id;
-	int ttd;                     // time_to_die
-	int tte;                     // time_to_eat
-	int tts;                     // time_to_sleep
-	int num_min_meals;           // time_to_sleep
-	long last_meal;              // last time that a philo eat
-	pthread_mutex_t meal_mutex;  // fork for the update meal value
-	pthread_mutex_t *own_fork;   // fork for the philo
-	pthread_mutex_t *other_fork; // fork for the other philo
-	struct s_data *data;         // to have acces to data like the time
+	int				n_philo;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int				num_min_meals;
+	long			last_meal;
+	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	*own_fork;
+	pthread_mutex_t	*other_fork;
+	struct s_data	*data;
 }					t_philo;
 
 typedef struct s_data
@@ -48,6 +48,7 @@ typedef struct s_data
 	int				total_philos;
 }					t_data;
 
+int					check_over(t_data *data);
 int					ft_strcmp(char *s1, char *s2);
 int					parser(int ac, char **av);
 int					ft_atoi(char *s);
@@ -60,7 +61,7 @@ void				destroy_and_free(t_data *data);
 void				init_philos_data(t_data *data, char **av);
 void				init_forks(t_data *data);
 void				init_philo_routine(t_data *data);
-void	print_philo_status(t_philo *philo, char *action); // se escribe action
+void				print_philo_status(t_philo *philo, char *action);
 long				get_timestamp(void);
 
 #endif

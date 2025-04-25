@@ -6,11 +6,21 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 00:28:56 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 18:15:50 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:23:08 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	check_over(t_data *data)
+{
+	int	over;
+
+	pthread_mutex_lock(&data->dead_mutex);
+	over = data->someone_die;
+	pthread_mutex_unlock(&data->dead_mutex);
+	return (over);
+}
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -45,7 +55,6 @@ void	destroy_and_free(t_data *data)
 {
 	int	i;
 
-	// Destruir mutex y liberar cada filósofo
 	i = 0;
 	while (i < data->total_philos)
 	{
@@ -54,7 +63,6 @@ void	destroy_and_free(t_data *data)
 		i++;
 	}
 	free(data->philos);
-	// Destruir y liberar los forks (mutexes)
 	i = 0;
 	while (i < data->total_philos)
 	{
@@ -62,9 +70,7 @@ void	destroy_and_free(t_data *data)
 		i++;
 	}
 	free(data->forks);
-	// Destruir mutexes globales
 	pthread_mutex_destroy(&data->dead_mutex);
 	pthread_mutex_destroy(&data->fed_mutex);
-	// Liberar array de hilos
 	free(data->threads);
 }

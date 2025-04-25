@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/25 03:09:39 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:58:16 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	print_philo_status(t_philo *philo, char *action)
 
 int	check_dead(t_data *data)
 {
-	int	i;
-	long now;
+	int		i;
+	long	now;
 
 	i = -1;
 	now = get_timestamp();

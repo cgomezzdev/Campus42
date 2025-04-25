@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/25 03:08:32 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:09:39 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	print_philo_status(t_philo *philo, char *action)
 
 	pthread_mutex_lock(&philo->data->dead_mutex);
 	timestamp = get_timestamp() - philo->data->start_time;
-	// Permite imprimir si nadie ha muerto, o si el mensaje es de muerte
-	if (!philo->data->someone_die || ft_strcmp(action, "died!!!!!!") == 0)
+	if (!philo->data->someone_die || ft_strcmp(action, "died") == 0)
 		printf("%ld philo %i %s\n", timestamp, philo->n_philo, action);
 	pthread_mutex_unlock(&philo->data->dead_mutex);
 }
@@ -42,7 +41,7 @@ int	check_dead(t_data *data)
 			{
 				data->someone_die = 1;
 				pthread_mutex_unlock(&data->dead_mutex);
-				print_philo_status(data->philos[i], "died!!!!!!");
+				print_philo_status(data->philos[i], "died");
 				return (1);
 			}
 			pthread_mutex_unlock(&data->dead_mutex);

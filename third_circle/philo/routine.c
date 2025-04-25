@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:43:02 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 19:11:36 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 02:53:38 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*routine(void *arg) // call the functions eating sleeping and thinking
 
 	philo = (t_philo *)arg;
 	check_min_meals = 0;
-	usleep(50);
+	usleep(100);
 	if (philo->data->total_philos == 1)
 		return (handle_one_philo(philo), NULL);
 	if (philo->n_philo % 2 == 1)

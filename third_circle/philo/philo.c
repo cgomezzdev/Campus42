@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 13:03:20 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/04/24 18:59:23 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:08:32 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ void	print_philo_status(t_philo *philo, char *action)
 int	check_dead(t_data *data)
 {
 	int	i;
+	long now;
 
 	i = -1;
+	now = get_timestamp();
 	while (++i < data->total_philos)
 	{
 		pthread_mutex_lock(&data->philos[i]->meal_mutex);
-		if (get_timestamp() - data->philos[i]->last_meal > data->philos[i]->ttd)
+		if (now - data->philos[i]->last_meal > data->philos[i]->ttd)
 		{
 			pthread_mutex_unlock(&data->philos[i]->meal_mutex);
 			pthread_mutex_lock(&data->dead_mutex);
@@ -72,7 +74,7 @@ void	*monitor(void *arg)
 		if (check_dead(data))
 			break ;
 	}
-	//usleep(500);
+	usleep(500);
 	return (NULL);
 }
 
@@ -100,7 +102,7 @@ int	main(int ac, char **av)
 	init_philos_data(&data, av);
 	init_forks(&data);
 	init_philo_routine(&data);
-	usleep(100);
+	usleep(500);
 	pthread_create(&data.monitor_thread, NULL, monitor, &data);
 	i = 0;
 	while (i < data.total_philos)

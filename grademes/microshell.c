@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:25:14 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/06/25 01:53:24 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/06/26 01:24:08 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 // ----------------------------------------------------------
 static int msg(char *s, char *arg)
 {
-	while (*s)
-		write(2, s++, 1);  // escribe mensaje principal
-	if (arg)
-	{
-		write(2, " ", 1);  // espacio separador
-		while (*arg)
-			write(2, arg++, 1);  // escribe argumento
-	}
-	write(2, "\n", 1);  // salto de línea final
-	return (1);
+        while (*s)
+                write(2, s++, 1);  // Escribe el mensaje principal a stderr
+        if (arg)
+        {
+                write(2, " ", 1);  // Escribe un espacio entre el mensaje y el argumento (si existe)
+                while (*arg)
+                        write(2, arg++, 1);  // Escribe el argumento a stderr
+        }
+        write(2, "\n", 1);  // Añade un salto de línea al final del mensaje
+        return (1);  // Devuelve 1 para indicar un error
 }
 
 // ----------------------------------------------------------
@@ -40,11 +40,11 @@ static int msg(char *s, char *arg)
 // ----------------------------------------------------------
 static int ft_cd(char **av, int i)
 {
-	if (i != 2)
-		return msg("error: cd: bad arguments", NULL);  // más o menos de un argumento
-	else if (chdir(av[1]) == -1)  // si chdir falla
-		return msg("error: cd: cannot change directory to", av[1]);
-	return (0);  // éxito
+        if (i != 2)  // Comprobamos que 'cd' tenga exactamente un argumento
+                return msg("error: cd: bad arguments", NULL);  // Error si hay más o menos de un argumento
+        else if (chdir(av[1]) == -1)  // Si falla la llamada a chdir (para cambiar directorio)
+                return msg("error: cd: cannot change directory to", av[1]);  // Error con la ruta
+        return (0);  // Devuelve 0 si todo fue correcto
 }
 
 // ----------------------------------------------------------
@@ -54,31 +54,35 @@ static int ft_cd(char **av, int i)
 // ----------------------------------------------------------
 static int ft_exec(char **av, char **env, int i)
 {
-	int status;
-	int fd[2];
-	int pipes = (av[i] && !strcmp(av[i], "|"));  // comprobamos si hay pipe después del comando
-	// Si hay pipe, creamos el pipe y comprobamos errores
-	if (pipes && pipe(fd) == -1)
-		return msg("error: fatal", NULL);
-	int pid = fork();  // bifurcamos proceso
-	if (!pid) // Proceso hijo
-	{
-		av[i] = 0;  // Separamos el comando cortando donde estaba el pipe o ';'
-		// Si hay pipe, redirigimos stdout al extremo de escritura del pipe
-		if (pipes && (dup2(fd[1], 1) == -1 || close(fd[1]) == -1 || close(fd[0]) == -1))
-			return msg("error: fatal", NULL);
-		// Ejecutamos el comando, pasándole los argumentos y el entorno
-		execve(*av, av, env);
-		// Si execve falla, mostramos mensaje de error y terminamos
-		return msg("error: cannot execute", *av);
-	}
-	// Proceso padre: espera al hijo
-	waitpid(pid, &status, 0);
-	// Si hay pipe, redirigimos stdin al extremo de lectura del pipe
-	if (pipes && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
-		return msg("error: fatal", NULL);
-	// Retornamos el código de salida del hijo si ha terminado normalmente
-	return WIFEXITED(status) && WEXITSTATUS(status);
+        int status;
+        int fd[2];
+        int pipes = (av[i] && !strcmp(av[i], "|"));  // Comprobamos si hay un pipe ('|') después del comando
+
+        // Si hay un pipe, creamos el pipe y comprobamos errores
+        if (pipes && pipe(fd) == -1)
+                return msg("error: fatal", NULL);  // Error al crear el pipe
+
+        int pid = fork();  // Creamos un proceso hijo
+        if (!pid)  // Si estamos en el proceso hijo
+        {
+                av[i] = 0;  // Separamos el comando donde estaba el pipe o ';' (cortamos los argumentos)
+                // Si hay un pipe, redirigimos stdout al extremo de escritura del pipe
+                if (pipes && (dup2(fd[1], 1) == -1 || close(fd[1]) == -1 || close(fd[0]) == -1))
+                        return msg("error: fatal", NULL);  // Error al redirigir el pipe
+
+                // Ejecutamos el comando usando execve (que reemplaza el proceso actual)
+                execve(*av, av, env);
+                // Si execve falla, mostramos un mensaje de error y terminamos
+                return msg("error: cannot execute", *av);
+        }
+        // En el proceso padre, esperamos a que el hijo termine
+        waitpid(pid, &status, 0);
+        // Si hay un pipe, redirigimos stdin al extremo de lectura del pipe
+        if (pipes && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
+                return msg("error: fatal", NULL);  // Error al redirigir el pipe
+
+        // Devolvemos el código de salida del hijo si terminó normalmente
+        return WIFEXITED(status) && WEXITSTATUS(status);
 }
 
 // ----------------------------------------------------------
@@ -87,24 +91,24 @@ static int ft_exec(char **av, char **env, int i)
 // ----------------------------------------------------------
 int main(int ac, char **av, char **env)
 {
-	(void)ac;  // se ignora ac porque no se usa directamente
-	int status = 0;
+        int status;
+        int i;
 
-	while (*av && *(av + 1))  // nos aseguramos de que hay argumentos después del nombre del programa
-	{
-		av++;  // saltamos el nombre del programa
-		int i = 0;
-		// Buscamos el índice del próximo separador ('|' o ';')
-		while (av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))
-			i++;
-		// Si el comando es 'cd', lo manejamos directamente
-		if (strcmp(*av, "cd") == 0)
-			status = ft_cd(av, i);
-		// Si no, lo tratamos como un comando externo
-		else if (i)
-			status = ft_exec(av, env, i);
-		// Nos saltamos el bloque que ya procesamos
-		av += i;
-	}
-	return status;
+        status = 0;  // Variable para guardar el estado de la ejecución
+        i = 0;
+        if (ac > 1)  // Comprobamos que haya argumentos (comandos) para ejecutar
+        {
+                while (av[i] && av[++i])  // Iteramos sobre los argumentos
+                {
+                        av += i;  // Saltamos el comando ejecutado
+                        i = 0;  // Reiniciamos el índice de los argumentos
+                        while (av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))  // Buscamos un '|' o ';' como separador de comandos
+                                i++;
+                        if (!strcmp(*av, "cd"))  // Si el comando es 'cd', ejecutamos ft_cd
+                                status = ft_cd(av, i);
+                        else if (i)  // Si hay más de un argumento, ejecutamos el comando normalmente
+                                status = ft_exec(av, env, i);
+                }
+        }
+        return status;  // Retornamos el estado de la última ejecución (código de salida)
 }

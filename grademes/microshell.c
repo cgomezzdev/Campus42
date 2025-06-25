@@ -6,7 +6,7 @@
 /*   By: cgomez-z <cgomez-z@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:25:14 by cgomez-z          #+#    #+#             */
-/*   Updated: 2025/06/23 19:29:26 by cgomez-z         ###   ########.fr       */
+/*   Updated: 2025/06/25 01:53:24 by cgomez-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,26 @@ static int ft_exec(char **av, char **env, int i)
 	int status;
 	int fd[2];
 	int pipes = (av[i] && !strcmp(av[i], "|"));  // comprobamos si hay pipe después del comando
-
 	// Si hay pipe, creamos el pipe y comprobamos errores
 	if (pipes && pipe(fd) == -1)
 		return msg("error: fatal", NULL);
-
 	int pid = fork();  // bifurcamos proceso
-
 	if (!pid) // Proceso hijo
 	{
 		av[i] = 0;  // Separamos el comando cortando donde estaba el pipe o ';'
-
 		// Si hay pipe, redirigimos stdout al extremo de escritura del pipe
 		if (pipes && (dup2(fd[1], 1) == -1 || close(fd[1]) == -1 || close(fd[0]) == -1))
 			return msg("error: fatal", NULL);
-
 		// Ejecutamos el comando, pasándole los argumentos y el entorno
 		execve(*av, av, env);
-
 		// Si execve falla, mostramos mensaje de error y terminamos
 		return msg("error: cannot execute", *av);
 	}
-
 	// Proceso padre: espera al hijo
 	waitpid(pid, &status, 0);
-
 	// Si hay pipe, redirigimos stdin al extremo de lectura del pipe
 	if (pipes && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
 		return msg("error: fatal", NULL);
-
 	// Retornamos el código de salida del hijo si ha terminado normalmente
 	return WIFEXITED(status) && WEXITSTATUS(status);
 }
@@ -103,21 +94,17 @@ int main(int ac, char **av, char **env)
 	{
 		av++;  // saltamos el nombre del programa
 		int i = 0;
-
 		// Buscamos el índice del próximo separador ('|' o ';')
 		while (av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))
 			i++;
-
 		// Si el comando es 'cd', lo manejamos directamente
 		if (strcmp(*av, "cd") == 0)
 			status = ft_cd(av, i);
 		// Si no, lo tratamos como un comando externo
 		else if (i)
 			status = ft_exec(av, env, i);
-
 		// Nos saltamos el bloque que ya procesamos
 		av += i;
 	}
-
 	return status;
 }

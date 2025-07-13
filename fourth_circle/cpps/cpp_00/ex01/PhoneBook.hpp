@@ -10,4 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
+
+#include "Contact.hpp"
+#include <string>
+
+class PhoneBook {
+public:
+    PhoneBook();
+
+    void AddContact(const Contact &contact);
+    void DisplayContacts() const;
+    void ShowContactDetails(int index) const;
+
+private:
+    Contact _contacts[8];
+    int     _count;
+    int     _oldestIndex;
+};
+
+#endif
 
